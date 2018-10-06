@@ -47,6 +47,8 @@ has data_file => (
 The local file where the key signatures for each song are listed by BWV number
 (with a few unfortunate gaps).
 
+Default: B<dist_dir()>/BWV-keys.txt
+
 =cut
 
 has key_file => (
@@ -58,6 +60,8 @@ has key_file => (
 
 The local file where the titles for each song are listed by BWV number
 (with a few unfortunate gaps).
+
+Default: B<dist_dir()>/BWV-titles.txt
 
 =cut
 
