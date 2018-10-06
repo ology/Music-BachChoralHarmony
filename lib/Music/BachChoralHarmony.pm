@@ -42,10 +42,34 @@ has data_file => (
     default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'jsbach_chorals_harmony.data' },
 );
 
+=head2 key_file
+
+The local file where the key signatures for each song are listed by BWV number
+(with a few unfortunate gaps).
+
+=cut
+
+has key_file => (
+    is      => 'ro',
+    default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'BWV-keys.txt' },
+);
+
+=head2 titles_file
+
+The local file where the titles for each song are listed by BWV number
+(with a few unfortunate gaps).
+
+=cut
+
+has titles_file => (
+    is      => 'ro',
+    default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'BWV-titles.txt' },
+);
+
 =head2 all
 
-Boolean flag to indicate that we want to collect the data into a single
-population, as opposed to collecting each song by id.
+Boolean flag to indicate that we want to collect into a single population, as
+opposed to collecting each song by id.
 
 Default: 0
 
@@ -81,10 +105,24 @@ references keyed by song id.
 sub parse {
     my ( $self, $song_id ) = @_;
 
+    # Collect the key signatures
+    my %keys;
+
+    open my $fh, '<', $self->key_file
+        or die "Can't read ", $self->key_file, ": $!";
+
+    while ( my $line = readline($fh) ) {
+        chomp $line;
+        my @parts = split /\s+/, $line;
+        $keys{ $parts[0] } = $parts[1];
+    }
+
+    close $fh;
+
     my $csv = Text::CSV->new( { binary => 1 } )
         or die "Can't use CSV: ", Text::CSV->error_diag();
 
-    open my $fh, '<:encoding(utf8)', $self->data_file
+    open $fh, '<', $self->data_file
         or die "Can't read ", $self->data_file, ": $!";
 
     my $progression;
@@ -107,6 +145,7 @@ sub parse {
         ( my $chord  = $row->[16] ) =~ s/\s*//g;
 
         my $struct = {
+            key    => $keys{$id},
             notes  => $notes,
             bass   => $bass,
             accent => $accent,
