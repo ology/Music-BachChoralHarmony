@@ -15,8 +15,11 @@ my %bigram;
 my %score;
 
 my $last = '';
+my $key  = '';
 
 for my $struct ( @$progression ) {
+    $key ||= $struct->{key};
+
     my $chord = $struct->{chord};
 
     if ( $last ) {
@@ -40,11 +43,15 @@ my %nodes;
 my %edges;
 
 for my $i ( keys %bigram ) {
-    $g->add_node( name => $i )
+    my $color = $i eq $key ? 'red' : 'black';
+
+    $g->add_node( name => $i, color => $color )
         unless $nodes{$i}++;
 
     for my $j ( @{ $bigram{$i} } ) {
-        $g->add_node( name => $j )
+        $color = $j eq $key ? 'red' : 'black';
+
+        $g->add_node( name => $j, color => $color )
             unless $nodes{$j}++;
 
         my $name = $i . ' ' . $j;
