@@ -56,7 +56,7 @@ has key_file => (
     default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'BWV-keys.txt' },
 );
 
-=head2 titles_file
+=head2 title_file
 
 The local file where the titles for each song are listed by BWV number
 (with a few unfortunate gaps).
@@ -65,7 +65,7 @@ Default: B<dist_dir()>/BWV-titles.txt
 
 =cut
 
-has titles_file => (
+has title_file => (
     is      => 'ro',
     default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'BWV-titles.txt' },
 );
@@ -96,8 +96,9 @@ Create a new C<Music::BachChoralHarmony> object.
 
   $progression = $bach->parse();
 
-Parse the B<data_file> into the song progression including the note
-bit string, bass note, the accent value and the resonating chord.
+Parse the B<data_file>, B<key_file> and B<title_file> into the song progression
+including the note bit string, bass note, the accent value and the resonating
+chord.
 
 If the B<all> flag is set or a song id is given, this function returns the
 progression as a list.  Otherwise, the progression is returned as hash
@@ -125,14 +126,17 @@ sub parse {
     # Collect the titles
     my %titles;
 
-    open $fh, '<', $self->titles_file
-        or die "Can't read ", $self->titles_file, ": $!";
+    open $fh, '<', $self->title_file
+        or die "Can't read ", $self->title_file, ": $!";
 
     while ( my $line = readline($fh) ) {
         chomp $line;
         next if $line =~ /^\s*$/ || $line =~ /^#/;
         my @parts = split /\s+/, $line, 3;
-        $titles{ $parts[0] } = $parts[2];
+        $titles{ $parts[0] } = {
+            bwv   => $parts[1],
+            title => $parts[2],
+        };
     }
 
     close $fh;
@@ -151,7 +155,8 @@ sub parse {
         ( my $id = $row->[0] ) =~ s/\s*//g;
 
         $progression->{$id}{key}   ||= $keys{$id};
-        $progression->{$id}{title} ||= $titles{$id};
+        $progression->{$id}{bwv}   ||= $titles{$id}{bwv};
+        $progression->{$id}{title} ||= $titles{$id}{title};
 
         my $notes = '';
 
