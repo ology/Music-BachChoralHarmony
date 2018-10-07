@@ -16,7 +16,9 @@ Music::Duration::tuple( 'wn', 'z', 5 );
 
 my $bach = Music::BachChoralHarmony->new;
 my $progression = $bach->parse();
-use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper$progression);exit;
+
+# Redefine the progression for the given id:
+$progression = $progression->{$id};
 
 my $bassline;
 my $melodyline;
@@ -26,7 +28,7 @@ my @scale = qw( C Cs D Ds E F Fs G Gs A As B );
 my $score = MIDI::Simple->new_score();
 $score->set_tempo( bpm_to_ms(90) * 1000 );
 
-for my $struct ( @$progression ) {
+for my $struct ( @{ $progression->{events} } ) {
     my $note = $struct->{bass};
     $note =~ s/b/f/;
     $note =~ s/#/s/;
