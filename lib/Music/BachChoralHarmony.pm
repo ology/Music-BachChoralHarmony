@@ -70,20 +70,6 @@ has title_file => (
     default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'BWV-titles.txt' },
 );
 
-=head2 all
-
-Boolean flag to indicate that we want to collect into a single population, as
-opposed to collecting each song by id.
-
-Default: 0
-
-=cut
-
-has all => (
-    is      => 'ro',
-    default => sub { 0 },
-);
-
 =head1 METHODS
 
 =head2 new()
@@ -98,11 +84,7 @@ Create a new C<Music::BachChoralHarmony> object.
 
 Parse the B<data_file>, B<key_file> and B<title_file> into the song progression
 including the note bit string, bass note, the accent value and the resonating
-chord.
-
-If the B<all> flag is set or a song id is given, this function returns the
-progression as a list.  Otherwise, the progression is returned as hash
-references keyed by song id.
+chord.  The progression is returned as a hash reference keyed by song id.
 
 =cut
 
@@ -175,12 +157,7 @@ sub parse {
             chord  => $chord,
         };
 
-        if ( $self->all ) {
-            push @{ $progression->{events} }, $struct;
-        }
-        else {
-            push @{ $progression->{$id}{events} }, $struct;
-        }
+        push @{ $progression->{$id}{events} }, $struct;
     }
 
     $csv->eof or die $csv->error_diag();
@@ -204,6 +181,6 @@ L<https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony>
 
 =head1 THANK YOU
 
-Dan Book (DBOOK) for the ShareDir clues
+Dan Book (DBOOK) for the ShareDir clues.
 
 =cut
