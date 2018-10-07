@@ -123,6 +123,7 @@ sub parse {
 
     close $fh;
 
+    # Collect the events
     my $csv = Text::CSV->new( { binary => 1 } )
         or die "Can't use CSV: ", Text::CSV->error_diag();
 
