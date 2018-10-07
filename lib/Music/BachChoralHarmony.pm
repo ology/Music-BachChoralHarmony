@@ -136,10 +136,6 @@ sub parse {
 
         ( my $id = $row->[0] ) =~ s/\s*//g;
 
-        $progression->{$id}{key}   ||= $keys{$id};
-        $progression->{$id}{bwv}   ||= $titles{$id}{bwv};
-        $progression->{$id}{title} ||= $titles{$id}{title};
-
         my $notes = '';
 
         for my $note ( 2 .. 13 ) {
@@ -149,6 +145,10 @@ sub parse {
         ( my $bass   = $row->[14] ) =~ s/\s*//g;
         ( my $accent = $row->[15] ) =~ s/\s*//g;
         ( my $chord  = $row->[16] ) =~ s/\s*//g;
+
+        $progression->{$id}{key}   ||= $keys{$id};
+        $progression->{$id}{bwv}   ||= $titles{$id}{bwv};
+        $progression->{$id}{title} ||= $titles{$id}{title};
 
         my $struct = {
             notes  => $notes,
