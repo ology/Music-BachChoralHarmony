@@ -9,7 +9,10 @@ my $id = shift || '000106b_';
 
 my $bach = Music::BachChoralHarmony->new;
 
-my $progression = $bach->parse($id);
+my $progression = $bach->parse();
+# Redefine progression for the given id
+$progression = $progression->{$id};
+#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper$progression);exit;
 
 my %bigram;
 my %score;
@@ -17,10 +20,8 @@ my %score;
 my $last = '';
 my $key  = '';
 
-for my $struct ( @$progression ) {
-    $key ||= $struct->{key};
-
-    my $chord = $struct->{chord};
+for my $struct ( @{ $progression->{events} } ) {
+    my $chord = $struct->{events}{chord};
 
     if ( $last ) {
         $score{ $last . ' ' . $chord }++;
