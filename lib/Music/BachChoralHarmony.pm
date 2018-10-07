@@ -15,10 +15,8 @@ use File::ShareDir 'dist_dir';
 
   use Music::BachChoralHarmony;
   my $bach = Music::BachChoralHarmony->new;
-  my $progression = $bach->parse;   # HoLoH
+  my $progression = $bach->parse;
   print Dump [keys %$progression];  # show all the ids
-  my $id = '001707b_';
-  $progression = $bach->parse($id); # LoH
 
 =head1 DESCRIPTION
 
