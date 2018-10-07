@@ -10,18 +10,17 @@ my $id = shift || '000106b_';
 my $bach = Music::BachChoralHarmony->new;
 
 my $progression = $bach->parse();
-# Redefine progression for the given id
+
+# Redefine the progression for the given id:
 $progression = $progression->{$id};
-#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper$progression);exit;
 
 my %bigram;
 my %score;
 
-my $last = '';
-my $key  = '';
+my $last;
 
 for my $struct ( @{ $progression->{events} } ) {
-    my $chord = $struct->{events}{chord};
+    my $chord = $struct->{chord};
 
     if ( $last ) {
         $score{ $last . ' ' . $chord }++;
@@ -42,6 +41,8 @@ my $g = GraphViz2->new(
 
 my %nodes;
 my %edges;
+
+my $key = $progression->{key};
 
 for my $i ( keys %bigram ) {
     my $color = $i eq $key ? 'red' : 'black';
