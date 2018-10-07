@@ -15,8 +15,8 @@ use File::ShareDir 'dist_dir';
 
   use Music::BachChoralHarmony;
   my $bach = Music::BachChoralHarmony->new;
-  my $progression = $bach->parse;
-  print Dump [keys %$progression]; # show all the song ids
+  my $songs = $bach->parse;
+  print Dump [keys %$songs]; # show all the song ids
 
 =head1 DESCRIPTION
 
@@ -78,7 +78,7 @@ Create a new C<Music::BachChoralHarmony> object.
 
 =head2 parse()
 
-  $progression = $bach->parse();
+  $songs = $bach->parse();
 
 Parse the B<data_file>, B<key_file> and B<title_file> into the song progression
 including the note bit string, bass note, the accent value and the resonating
