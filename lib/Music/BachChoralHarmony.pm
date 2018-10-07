@@ -95,7 +95,6 @@ Create a new C<Music::BachChoralHarmony> object.
 =head2 parse()
 
   $progression = $bach->parse();
-  $progression = $bach->parse($id);
 
 Parse the B<data_file> into the song progression including the note
 bit string, bass note, the accent value and the resonating chord.
@@ -107,7 +106,7 @@ references keyed by song id.
 =cut
 
 sub parse {
-    my ( $self, $song_id ) = @_;
+    my ($self) = @_;
 
     # Collect the key signatures
     my %keys;
@@ -119,6 +118,21 @@ sub parse {
         chomp $line;
         my @parts = split /\s+/, $line;
         $keys{ $parts[0] } = $parts[1];
+    }
+
+    close $fh;
+
+    # Collect the titles
+    my %titles;
+
+    open $fh, '<', $self->titles_file
+        or die "Can't read ", $self->titles_file, ": $!";
+
+    while ( my $line = readline($fh) ) {
+        chomp $line;
+        next if $line =~ /^\s*$/ || $line =~ /^#/;
+        my @parts = split /\s+/, $line, 3;
+        $titles{ $parts[0] } = $parts[2];
     }
 
     close $fh;
@@ -136,7 +150,8 @@ sub parse {
 
         ( my $id = $row->[0] ) =~ s/\s*//g;
 
-        next if $song_id && $song_id ne $id;
+        $progression->{$id}{key}   ||= $keys{$id};
+        $progression->{$id}{title} ||= $titles{$id};
 
         my $notes = '';
 
@@ -149,7 +164,6 @@ sub parse {
         ( my $chord  = $row->[16] ) =~ s/\s*//g;
 
         my $struct = {
-            key    => $keys{$id},
             notes  => $notes,
             bass   => $bass,
             accent => $accent,
@@ -157,17 +171,17 @@ sub parse {
         };
 
         if ( $self->all ) {
-            push @$progression, $struct;
+            push @{ $progression->{events} }, $struct;
         }
         else {
-            push @{ $progression->{$id} }, $struct;
+            push @{ $progression->{$id}{events} }, $struct;
         }
     }
 
     $csv->eof or die $csv->error_diag();
     close $fh;
 
-    return $song_id ? $progression->{$song_id} : $progression;
+    return $progression;
 }
 
 1;
