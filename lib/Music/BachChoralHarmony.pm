@@ -42,7 +42,7 @@ C<jsbchorales.net> and filled-in from C<bach-chorales.com>.  The keys were
 computed with a C<music21> python program and again filled-in from
 C<bach-chorales.com>.  Check out the links in the L</SEE ALSO> section.
 
-See the C<eg/> programs for usage examples.
+See the distribution C<eg/> programs for usage examples.
 
 =head1 ATTRIBUTES
 
