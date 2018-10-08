@@ -53,7 +53,7 @@ Default: B<dist_dir()>/jsbach_BWV_keys_titles.txt
 
 has key_title => (
     is      => 'ro',
-    default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'jsbach_BWV_keys_titles.txt' },
+    default => sub { dist_dir('Music-BachChoralHarmony') . '/' . 'jsbach_BWV_keys_titles.txt' },
 );
 
 =head1 METHODS
@@ -68,9 +68,10 @@ Create a new C<Music::BachChoralHarmony> object.
 
   $songs = $bach->parse();
 
-Parse the B<data_file>, B<key_file> and B<title_file> into the song progression
-including the note bit string, bass note, the accent value and the resonating
-chord.  The progression is returned as a hash reference keyed by song id.
+Parse the B<data_file> and B<key_title> files into a hash reference of each song
+keyed by the song id.  Each song includes a BWV identifier, title, key and list
+of events.  The event list is made of hash references with keys for the notes
+bit string, bass note, the accent value and the resonating chord.
 
 =cut
 
