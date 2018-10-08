@@ -5,7 +5,7 @@ use warnings;
 use lib '/Users/gene/sandbox/Music-BachChoralHarmony/lib';
 use Music::BachChoralHarmony;
 use lib '/Users/gene/sandbox/Statistics-Diversity-Shannon/lib';
-use Statistics::Diversity::Shannon;
+use Statistics::Diversity::Shannon; # https://metacpan.org/release/Statistics-Diversity-Shannon
 
 my $bach = Music::BachChoralHarmony->new;
 my $songs = $bach->parse();
