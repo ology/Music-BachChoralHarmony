@@ -1,6 +1,8 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
+
+0.0102 2018-10-08 16:32:30
     - Improve documentation.
     - Add event tests.
 
