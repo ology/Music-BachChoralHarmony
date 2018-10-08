@@ -22,10 +22,19 @@ use File::ShareDir 'dist_dir';
 
 C<Music::BachChoralHarmony> parses the UCI Bach choral harmony data set.
 
-This module does two simple things: 1. It turns the CSV data into a perl data
-strutcure.  2. It converts the YES/NO note specification into a bit string.
+This module does a few simple things:
 
-Please see the C<eg/> programs for usage examples.
+1. It turns the UCI CSV data into a perl data structure.
+
+2. It converts the UCI YES/NO note specification into a bit string.
+
+3. It combines the Bach BWV number, song title and key with the data.
+
+The BWV and titles were collected from an old Internet Archive of
+C<jsbchorales.net>.  The keys were computed with a C<music21> program.
+Check out the links in the L</SEE ALSO> section.
+
+See the C<eg/> programs for usage examples.
 
 =head1 ATTRIBUTES
 
@@ -153,6 +162,12 @@ L<Text::CSV>
 L<File::ShareDir>
 
 L<https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony>
+
+L<https://web.archive.org/web/*/http://www.jsbchorales.net/>
+
+L<http://web.mit.edu/music21/>
+
+L<https://github.com/ology/Bach-Chorales/blob/master/bin/key.py>
 
 =head1 THANK YOU
 
