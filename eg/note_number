@@ -27,7 +27,7 @@ $chart->set(
     title         => 'Number of Notes by Chorale',
     pt_size       => 10,
     legend_labels => ['No.'],
-    x_label       => 'Chorale',
+    x_label       => 'Chorale BWV',
     y_label       => 'Number of notes',
     x_ticks       => 'vertical',
     precision     => 0,
@@ -38,9 +38,8 @@ $chart->set(
 );
 
 my @sorted = sort { $score{$a} <=> $score{$b} } keys %score;
-$chart->add_dataset(@sorted);
-my @data = map { $score{$_} } @sorted;
-$chart->add_dataset(@data);
+$chart->add_dataset( map { $songs->{$_}{bwv} } @sorted );
+$chart->add_dataset( map { $score{$_} } @sorted );
 
 $chart->png("$0.png");
 
