@@ -38,8 +38,8 @@ This module does a few simple things:
 3. It combines the Bach BWV number, song title and key with the data.
 
 The BWV and titles were collected from an old Internet Archive of
-C<jsbchorales.net>.  The keys were computed with a C<music21> program.
-Check out the links in the L</SEE ALSO> section.
+C<jsbchorales.net> and from C<bach-chorales.com>.  The keys were computed with a
+C<music21> python program.  Check out the links in the L</SEE ALSO> section.
 
 See the C<eg/> programs for usage examples.
 
