@@ -163,7 +163,7 @@ L<File::ShareDir>
 
 L<https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony>
 
-L<https://web.archive.org/web/*/http://www.jsbchorales.net/>
+L<https://web.archive.org/web/20140515065053/http://www.jsbchorales.net/bwv.shtml>
 
 L<http://web.mit.edu/music21/>
 
