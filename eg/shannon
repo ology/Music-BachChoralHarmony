@@ -22,7 +22,7 @@ my $i = 0;
 
 # Find the Shannon diversity of each songs note sets
 my %diversity;
-for my $id ( keys %score ) {
+for my $id ( sort keys %score ) {
     $i++;
     my $d = Statistics::Diversity::Shannon->new( data => [ values %{ $score{$id} } ] );
     warn sprintf "%02d. %s: %.4f, %.4f\n", $i, $id, $d->index, $d->evenness;
