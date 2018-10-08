@@ -8,7 +8,6 @@ use Music::BachChoralHarmony;
 my $id = shift || '000106b_';
 
 my $bach = Music::BachChoralHarmony->new;
-
 my $progression = $bach->parse();
 
 # Redefine the progression for the given id:
