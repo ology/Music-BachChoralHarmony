@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+# Plot a network graph of the outgoing chords of all songs in the given key.
+
 use GraphViz2;
 use Music::BachChoralHarmony;
 
