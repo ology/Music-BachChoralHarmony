@@ -1,8 +1,11 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
+    - Improve documentation.
+
+0.0101 2018-10-08 15:12:14
     - Fill-in missing keys.
 
 0.0100 2018-10-08 14:09:41
-    - Minted by Dist::Zilla.
-    - Tweaked significantly into place.
+    - Mint by Dist::Zilla.
+    - Tweak significantly into place.
