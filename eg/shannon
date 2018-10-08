@@ -25,7 +25,7 @@ my %diversity;
 for my $id ( keys %score ) {
     $i++;
     my $d = Statistics::Diversity::Shannon->new( data => [ values %{ $score{$id} } ] );
-    warn $i, '. ', $id, ': ', $d->index, ', ', $d->evenness, "\n";
+    warn sprintf "%02d. %s: %.4f, %.4f\n", $i, $id, $d->index, $d->evenness;
     $diversity{$id} = [ $d->index, $d->evenness ];
 }
 
