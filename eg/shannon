@@ -35,11 +35,12 @@ my $chart = Chart::Points->new( 800, 400 );
 
 $chart->set(
     title         => 'Shannon Diversity',
-    xy_plot       => 1,
     pt_size       => 10,
     legend_labels => ['Sorted Chorales'],
     x_label       => 'Chorale',
     y_label       => 'Index',
+    x_ticks       => 'vertical',
+#    xy_plot       => 1,
 );
 
 $chart->add_dataset( 1 .. keys %diversity );
