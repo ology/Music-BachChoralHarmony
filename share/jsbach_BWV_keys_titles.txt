@@ -1,6 +1,6 @@
 # https://web.archive.org/web/20100626101009/http://www.jsbchorales.net/bwv.shtml
 
-UCI-ID	 BWV	Key Title
+#UCI-ID	 BWV	Key	Title
 
 000106b_ 1.6 	F_M	Wie schön leuchtet der Morgenstern
 000206b_ 2.6 	G_m	Ach Gott, vom Himmel sieh' darein
