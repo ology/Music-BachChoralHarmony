@@ -15,10 +15,10 @@ my $id = shift || '000106b_';
 Music::Duration::tuple( 'wn', 'z', 5 ); # 5 notes in place of one whole note
 
 my $bach = Music::BachChoralHarmony->new;
-my $progression = $bach->parse();
+my $songs = $bach->parse();
 
 # Redefine the progression for the given id:
-$progression = $progression->{$id};
+$songs = $songs->{$id};
 
 my $bassline;
 my $melodyline;
@@ -28,13 +28,13 @@ my @scale = qw( C Cs D Ds E F Fs G Gs A As B );
 my $score = MIDI::Simple->new_score();
 $score->set_tempo( bpm_to_ms(90) * 1000 );
 
-for my $struct ( @{ $progression->{events} } ) {
-    my $note = $struct->{bass};
+for my $event ( @{ $songs->{events} } ) {
+    my $note = $event->{bass};
     $note =~ s/b/f/;
     $note =~ s/#/s/;
     push @$bassline, $note;
 
-    my $size = count_ones( $struct->{notes} );
+    my $size = count_ones( $event->{notes} );
     my $duration =
         $size == 1 ? 'wn'  :
         $size == 2 ? 'hn'  :
@@ -42,7 +42,7 @@ for my $struct ( @{ $progression->{events} } ) {
         $size == 4 ? 'qn'  : 'zwn';
     my @notes;
     my $i = 0;
-    for my $bit ( split //, $struct->{notes} ) {
+    for my $bit ( split //, $event->{notes} ) {
         push @notes, [ $duration, $scale[$i] ]
             if $bit;
         $i++;
