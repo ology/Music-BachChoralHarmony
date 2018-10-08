@@ -50,7 +50,7 @@ See the distribution C<eg/> programs for usage examples.
 
 The local file where the Bach choral harmony data set resides.
 
-Default: B<dist_dir()>/jsbach_chorals_harmony.data
+Default: C<dist_dir()>/jsbach_chorals_harmony.data
 
 =cut
 
@@ -64,7 +64,7 @@ has data_file => (
 The local file where the key signatures and titles for each song are listed by
 BWV number.
 
-Default: B<dist_dir()>/jsbach_BWV_keys_titles.txt
+Default: C<dist_dir()>/jsbach_BWV_keys_titles.txt
 
 =cut
 
@@ -77,7 +77,7 @@ has key_title => (
 
 =head2 new()
 
-  $bach = Music::BachChoralHarmony->new(%arguments);
+  $bach = Music::BachChoralHarmony->new();
 
 Create a new C<Music::BachChoralHarmony> object.
 
