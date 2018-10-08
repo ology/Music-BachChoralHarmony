@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+# Plot the Shannon diversity index for each song.
+
 use Music::BachChoralHarmony;
 use Statistics::Diversity::Shannon;
 
