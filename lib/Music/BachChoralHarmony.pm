@@ -61,7 +61,7 @@ has data_file => (
 =head2 key_title
 
 The local file where the key signatures and titles for each song are listed by
-BWV number (with a few unfortunate gaps).
+BWV number.
 
 Default: B<dist_dir()>/jsbach_BWV_keys_titles.txt
 
