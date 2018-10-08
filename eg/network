@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+# Plot a network graph of the chords of a given song.
+
 use GraphViz2;
 use Music::BachChoralHarmony;
 
