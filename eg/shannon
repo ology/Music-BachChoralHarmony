@@ -18,7 +18,7 @@ for my $id ( keys %$songs ) {
 
 my $i = 0;
 
-# Find the Shannon diversity of each songs note sets
+# Find the Shannon diversity of each song note set
 my %diversity;
 for my $id ( sort keys %score ) {
     $i++;
