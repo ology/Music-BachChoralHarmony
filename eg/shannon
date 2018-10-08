@@ -49,7 +49,6 @@ $chart->set(
 
 my @sorted = sort { $diversity{$a}->[0] <=> $diversity{$b}->[0] } keys %diversity;
 $chart->add_dataset( map { $songs->{$_}{bwv} } @sorted );
-my @data = map { $diversity{$_}->[0] } @sorted;
-$chart->add_dataset(@data);
+$chart->add_dataset( map { $diversity{$_}->[0] } @sorted );
 
 $chart->png("$0.png");
