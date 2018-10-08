@@ -172,6 +172,8 @@ L<https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony>
 
 L<https://web.archive.org/web/20140515065053/http://www.jsbchorales.net/bwv.shtml>
 
+L<http://www.bach-chorales.com/BachChorales.htm>
+
 L<http://web.mit.edu/music21/>
 
 L<https://github.com/ology/Bach-Chorales/blob/master/bin/key.py>
