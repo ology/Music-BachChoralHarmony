@@ -22,7 +22,7 @@ use File::ShareDir 'dist_dir';
   print Dumper [ keys %$songs ];
 
   # show all the song titles:
-  print Dumper [ map{ $songs->{$_}{title} } keys %$songs ];
+  print Dumper [ map { $songs->{$_}{title} } keys %$songs ];
 
 =head1 DESCRIPTION
 
