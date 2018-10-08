@@ -26,11 +26,17 @@ lives_ok {
 
 is keys %$song, 60, 'parse progression';
 
-$song = $song->{'000106b_'};
+my $x = '000106b_';
+ok exists $song->{$x}, $x;
+$song = $song->{$x};
 
 is $song->{key}, 'F_M', 'key';
 is $song->{bwv}, '1.6', 'bwv';
 ok $song->{title}, 'title';
 is scalar( @{ $song->{events} } ), 162, 'events';
+is $song->{events}[0]{notes}, '100001000100', 'notes';
+is $song->{events}[0]{bass}, 'F', 'bass';
+is $song->{events}[0]{chord}, 'F_M', 'chord';
+is $song->{events}[0]{accent}, 3, 'accent';
 
 done_testing();
