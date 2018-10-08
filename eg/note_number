@@ -30,6 +30,7 @@ $chart->set(
     x_label       => 'Chorale',
     y_label       => 'Number of notes',
     x_ticks       => 'vertical',
+    precision     => 0,
     grid_lines    => 1,
     colors        => {
         grid_lines => 'gray',
