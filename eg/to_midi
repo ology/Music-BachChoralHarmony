@@ -4,9 +4,7 @@ use warnings;
 
 use List::Util 'shuffle';
 use MIDI::Simple;
-use lib '/Users/gene/sandbox/Music-BachChoralHarmony/lib';
 use Music::BachChoralHarmony;
-use lib '/Users/gene/sandbox/Music-Duration/lib';
 use Music::Duration;
 use Music::Tempo;
 
