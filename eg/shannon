@@ -31,20 +31,24 @@ for my $id ( sort keys %score ) {
 
 # Build chart
 use Chart::Points;
-my $chart = Chart::Points->new( 800, 400 );
+my $chart = Chart::Points->new( 1000, 400 );
 
 $chart->set(
     title         => 'Shannon Diversity',
     pt_size       => 10,
-    legend_labels => ['Sorted Chorales'],
+    legend_labels => ['Chorales'],
     x_label       => 'Chorale',
     y_label       => 'Index',
     x_ticks       => 'vertical',
-#    xy_plot       => 1,
+    grid_lines    => 1,
+    colors        => {
+        grid_lines => 'gray',
+    },
 );
 
-$chart->add_dataset( 1 .. keys %diversity );
-my @data = map { $diversity{$_}->[0] } sort { $diversity{$a}->[0] <=> $diversity{$b}->[0] } keys %diversity;
+my @sorted = sort { $diversity{$a}->[0] <=> $diversity{$b}->[0] } keys %diversity;
+$chart->add_dataset(@sorted);
+my @data = map { $diversity{$_}->[0] } @sorted;
 $chart->add_dataset(@data);
 
 $chart->png("$0.png");
