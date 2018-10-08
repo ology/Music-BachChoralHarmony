@@ -14,9 +14,15 @@ use File::ShareDir 'dist_dir';
 =head1 SYNOPSIS
 
   use Music::BachChoralHarmony;
+
   my $bach = Music::BachChoralHarmony->new;
   my $songs = $bach->parse;
-  print Dump [keys %$songs]; # show all the song ids
+
+  # show all the song ids:
+  print Dumper [keys %$songs];
+
+  # show all the song titles:
+  print Dumper [ map{ $songs->{$_}{title} } keys %$songs];
 
 =head1 DESCRIPTION
 
