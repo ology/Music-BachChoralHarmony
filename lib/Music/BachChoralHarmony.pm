@@ -25,6 +25,8 @@ C<Music::BachChoralHarmony> parses the UCI Bach choral harmony data set.
 This module does two simple things: 1. It turns the CSV data into a perl data
 strutcure.  2. It converts the YES/NO note specification into a bit string.
 
+Please see the C<eg/> programs for usage examples.
+
 =head1 ATTRIBUTES
 
 =head2 data_file
