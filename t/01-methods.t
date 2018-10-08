@@ -19,11 +19,18 @@ my $bach = Music::BachChoralHarmony->new(
 );
 isa_ok $bach, 'Music::BachChoralHarmony';
 
-my $progression;
+my $song;
 lives_ok {
-    $progression = $bach->parse;
+    $song = $bach->parse;
 } 'lives through parse';
 
-is keys %$progression, 60, 'parse progression';
+is keys %$song, 60, 'parse progression';
+
+$song = $song->{'000106b_'};
+
+is $song->{key}, 'F_M', 'key';
+is $song->{bwv}, '1.6', 'bwv';
+ok $song->{title}, 'title';
+is scalar( @{ $song->{events} } ), 162, 'events';
 
 done_testing();
