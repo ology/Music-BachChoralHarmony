@@ -40,32 +40,18 @@ has data_file => (
     default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'jsbach_chorals_harmony.data' },
 );
 
-=head2 key_file
+=head2 key_title
 
-The local file where the key signatures for each song are listed by BWV number
-(with a few unfortunate gaps).
+The local file where the key signatures and titles for each song are listed by
+BWV number (with a few unfortunate gaps).
 
-Default: B<dist_dir()>/BWV-keys.txt
-
-=cut
-
-has key_file => (
-    is      => 'ro',
-    default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'BWV-keys.txt' },
-);
-
-=head2 title_file
-
-The local file where the titles for each song are listed by BWV number
-(with a few unfortunate gaps).
-
-Default: B<dist_dir()>/BWV-titles.txt
+Default: B<dist_dir()>/jsbach_BWV_keys_titles.txt
 
 =cut
 
-has title_file => (
+has key_title => (
     is      => 'ro',
-    default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'BWV-titles.txt' },
+    default => sub { dist_dir('Music-BachChoralHarmony') . '/' .  'jsbach_BWV_keys_titles.txt' },
 );
 
 =head1 METHODS
@@ -89,33 +75,20 @@ chord.  The progression is returned as a hash reference keyed by song id.
 sub parse {
     my ($self) = @_;
 
-    # Collect the key signatures
-    my %keys;
+    # Collect the key signatures and titles
+    my %data;
 
-    open my $fh, '<', $self->key_file
-        or die "Can't read ", $self->key_file, ": $!";
-
-    while ( my $line = readline($fh) ) {
-        chomp $line;
-        my @parts = split /\s+/, $line;
-        $keys{ $parts[0] } = $parts[1];
-    }
-
-    close $fh;
-
-    # Collect the titles
-    my %titles;
-
-    open $fh, '<', $self->title_file
-        or die "Can't read ", $self->title_file, ": $!";
+    open my $fh, '<', $self->key_title
+        or die "Can't read ", $self->key_title, ": $!";
 
     while ( my $line = readline($fh) ) {
         chomp $line;
         next if $line =~ /^\s*$/ || $line =~ /^#/;
-        my @parts = split /\s+/, $line, 3;
-        $titles{ $parts[0] } = {
+        my @parts = split /\s+/, $line, 4;
+        $data{ $parts[0] } = {
             bwv   => $parts[1],
-            title => $parts[2],
+            key   => $parts[2],
+            title => $parts[3],
         };
     }
 
@@ -145,9 +118,9 @@ sub parse {
         ( my $accent = $row->[15] ) =~ s/\s*//g;
         ( my $chord  = $row->[16] ) =~ s/\s*//g;
 
-        $progression->{$id}{key}   ||= $keys{$id};
-        $progression->{$id}{bwv}   ||= $titles{$id}{bwv};
-        $progression->{$id}{title} ||= $titles{$id}{title};
+        $progression->{$id}{key}   ||= $data{$id}{key};
+        $progression->{$id}{bwv}   ||= $data{$id}{bwv};
+        $progression->{$id}{title} ||= $data{$id}{title};
 
         my $struct = {
             notes  => $notes,
