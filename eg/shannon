@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use lib '/Users/gene/sandbox/Music-BachChoralHarmony/lib';
+use Music::BachChoralHarmony;
+use lib '/Users/gene/sandbox/Statistics-Diversity-Shannon/lib';
+use Statistics::Diversity::Shannon;
+
+my $bach = Music::BachChoralHarmony->new;
+my $songs = $bach->parse();
+
+# Get the usage number of each songs note sets
+my %score;
+for my $id ( keys %$songs ) {
+    for my $event ( @{ $songs->{$id}{events} } ) {
+        $score{$id}->{ $event->{notes} }++;
+    }
+}
+
+my $i = 0;
+
+# Find the Shannon diversity of each songs note sets
+my %diversity;
+for my $id ( keys %score ) {
+    $i++;
+    my $d = Statistics::Diversity::Shannon->new( data => [ values %{ $score{$id} } ] );
+    warn $i, '. ', $id, ': ', $d->index, ', ', $d->evenness, "\n";
+    $diversity{$id} = [ $d->index, $d->evenness ];
+}
+
+# Build chart
+use Chart::Points;
+my $chart = Chart::Points->new( 800, 400 );
+
+$chart->set(
+    title         => 'Shannon Diversity',
+    xy_plot       => 1,
+    pt_size       => 10,
+    legend_labels => ['Sorted Chorales'],
+    x_label       => 'Chorale',
+    y_label       => 'Index',
+);
+
+$chart->add_dataset( 1 .. keys %diversity );
+my @data = map { $diversity{$_}->[0] } sort { $diversity{$a}->[0] <=> $diversity{$b}->[0] } keys %diversity;
+$chart->add_dataset(@data);
+
+$chart->png("$0.png");
