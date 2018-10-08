@@ -19,10 +19,10 @@ use File::ShareDir 'dist_dir';
   my $songs = $bach->parse;
 
   # show all the song ids:
-  print Dumper [keys %$songs];
+  print Dumper [ keys %$songs ];
 
   # show all the song titles:
-  print Dumper [ map{ $songs->{$_}{title} } keys %$songs];
+  print Dumper [ map{ $songs->{$_}{title} } keys %$songs ];
 
 =head1 DESCRIPTION
 
