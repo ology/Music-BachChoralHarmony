@@ -19,9 +19,9 @@ my $chart = Chart::Bars->new( 800, 400 );
 
 $chart->set(
     legend       => 'none',
-    title        => 'Keys in All Chorales',
+    title        => 'Keys of All Chorales',
     x_label      => 'Key',
-    y_label      => 'Songs of key',
+    y_label      => 'Songs',
     precision    => 0,
     include_zero => 'true',
 );
