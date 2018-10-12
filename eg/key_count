@@ -18,6 +18,7 @@ use Chart::Bars;
 my $chart = Chart::Bars->new( 800, 400 );
 
 $chart->set(
+    legend       => 'none',
     title        => 'Keys in All Chorales',
     x_label      => 'Key',
     y_label      => 'Songs of key',
