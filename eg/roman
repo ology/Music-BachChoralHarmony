@@ -9,7 +9,7 @@ use List::MoreUtils 'first_index';
 use Music::BachChoralHarmony;
 use Music::Scales;
 
-my $in_key = shift || 'A_m';
+my $in_key = shift || 'G_m';
 
 my @roman = qw( I ii iii IV V vi vii );
 
@@ -26,6 +26,7 @@ for my $song ( sort keys %$songs ) {
 
     # Skip unless we are in the right key
     next unless $key eq $in_key;
+#    print "SONG: $song\n";
 
     # Get the scale name
     my $name = $key =~ /M/ ? 'major' : 'minor';
