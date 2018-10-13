@@ -30,6 +30,7 @@ my %enharmonics = (
 
 for my $song ( sort keys %$songs ) {
     for my $event ( @{ $songs->{$song}{events} } ) {
+        # Convert the bitstring to a list of note names
         my @notes;
         my $i = 0;
         for my $bit ( split //, $event->{notes} ) {
@@ -38,12 +39,14 @@ for my $song ( sort keys %$songs ) {
             $i++;
         }
 
+        # Convert the chord to a list of note names
         my $chord = $event->{chord};
         $chord =~ s/M//;
         $chord =~ s/_//;
         $chord =~ s/4/add4/;
         my @tone = eval { $cn->chord($chord) };
 
+        # Convert the list of note list variations to a list of chord names
         my @names;
         my @items = variations( \@notes, scalar(@notes) );
         for my $item ( @items ) {
@@ -53,6 +56,7 @@ for my $song ( sort keys %$songs ) {
             }
         }
 
+        # Get a single computed chord name if one exists, otherwise use all the names
         my $name;
         if ( grep { $chord eq $_ } @names ) {
             $name = $chord;
