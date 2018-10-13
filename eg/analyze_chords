@@ -27,14 +27,9 @@ my %enharmonics = (
     'A#' => 'Bb',
     'Bb' => 'A#',
 );
-#my @scale = qw( C Db D Eb E F Gb G Ab A Bb B );
 
 for my $song ( sort keys %$songs ) {
     for my $event ( @{ $songs->{$song}{events} } ) {
-#        my $note = $event->{bass};
-#        $note =~ s/b/f/;
-#        $note =~ s/#/s/;
-
         my @notes;
         my $i = 0;
         for my $bit ( split //, $event->{notes} ) {
