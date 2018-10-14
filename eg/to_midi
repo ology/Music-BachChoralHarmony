@@ -8,7 +8,7 @@ use List::Util 'shuffle';
 use MIDI::Simple;
 use Music::BachChoralHarmony;
 use Music::Chord::Note;
-#use lib '/Users/gene/sandbox/Music-Duration/lib';
+use lib '/Users/gene/sandbox/Music-Duration/lib';
 use Music::Duration;
 use Music::Tempo;
 
@@ -18,6 +18,7 @@ Music::Duration::tuple( 'wn', 'z', 5 ); # 5 notes in place of one whole note
 
 my $bach = Music::BachChoralHarmony->new;
 my $song = $bach->parse();
+#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper[sort keys%$song]);exit;
 
 # Redefine the progression for the given id:
 $song = $song->{$id};
@@ -88,6 +89,7 @@ sub bass {
     $score->patch_change( 0, 34 );
     $score->Octave(3);
     $score->n( 'wn', $_ ) for @$bassline;
+    $score->n( 'wn', $bassline->[-1] );
 }
 
 sub melody {
