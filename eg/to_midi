@@ -8,6 +8,7 @@ use List::Util 'shuffle';
 use MIDI::Simple;
 use Music::BachChoralHarmony;
 use Music::Chord::Note;
+#use lib '/Users/gene/sandbox/Music-Duration/lib';
 use Music::Duration;
 use Music::Tempo;
 
