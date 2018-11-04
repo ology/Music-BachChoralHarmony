@@ -48,23 +48,20 @@ for my $song ( sort keys %$songs ) {
 
         # Get the roman representation based on the scale position
         my $position = first_index { $_ eq $note } @notes;
-        my $roman;
+        my ( $roman, $accidental );
         if ( $position == -1 ) {
             if ( length($note) == 1 ) {
                 $position = first_index { $_ =~ /$note/ } @notes;
-                ( my $accidental = $notes[$position] ) =~ s/^\w(.)$/$1/;
-                my $factor = $accidental eq '#' ? 'b' : '#';
-                $roman = $factor . $roman[$position];
+                ( $accidental = $notes[$position] ) =~ s/^\w(.)$/$1/;
+                $accidental = $accidental eq '#' ? 'b' : '#';
             }
             else {
-                my ( $note, $accidental ) = $note =~ /^(\w)(.)$/;
-                $position = first_index { $_ eq $note } @notes;
-                $roman = $accidental . $roman[$position];
+                my $letter;
+                ( $letter, $accidental ) = $letter =~ /^(\w)(.)$/;
+                $position = first_index { $_ eq $letter } @notes;
             }
         }
-        else {
-            $roman = $roman[$position];
-        }
+        $roman = $roman[$position];
 
         # Get everything but the note part
         ( my $decorator = $chord ) =~ s/^\w[#b]?(\w*)$/$1/;
@@ -75,6 +72,9 @@ for my $song ( sort keys %$songs ) {
 
         # Convert the case of the roman representation based on minor or major
         $roman = $minor ? lc($roman) : uc($roman);
+
+        # Add any accidental found in a non-scale note
+        $roman = $accidental . $roman if $accidental;
 
         # Drop the minor and major part of the chord name
         $decorator =~ s/M//i;
