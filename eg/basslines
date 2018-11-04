@@ -8,6 +8,8 @@ use List::MoreUtils 'first_index';
 use Music::BachChoralHarmony;
 use Music::Scales;
 
+my $size = shift || 4;
+
 my @roman = qw( I ii iii IV V vi vii );
 
 my $bach = Music::BachChoralHarmony->new;
@@ -18,7 +20,7 @@ my %score;
 # Process each song for key and chord
 for my $song ( sort keys %$songs ) {
     my $key = $songs->{$song}{key};
-    print "SONG: $song in $key\n";
+#    print "SONG: $song in $key\n";
 
     # Get the scale name
     my $name = $key =~ /M/ ? 'major' : 'minor';
@@ -26,10 +28,11 @@ for my $song ( sort keys %$songs ) {
 
     # Get the scale notes
     my @notes = get_scale_notes( $key, $name );
-    print "KEY: $key, SCALE: $name, NOTES: @notes\n";
+#    print "KEY: $key, SCALE: $name, NOTES: @notes\n";
 
-    # The last seen roman
+    # The last seen roman group
     my $last;
+    my @seen;
 
     # Turn the bass into a roman representation
     for my $event ( @{ $songs->{$song}{events} } ) {
@@ -54,10 +57,19 @@ for my $song ( sort keys %$songs ) {
         else {
             $roman = $roman[$position];
         }
-        print "\t$position - BASS: $bass, ROMAN: $roman\n";
+#        print "\t$position - BASS: $bass, ROMAN: $roman\n";
 
-        # Tally the bigram
-        $score{ $last . ' ' . $roman }++ if $last;
-        $last = $roman;
+        # Tally the seen group
+        push @seen, $roman;
+
+        if ( @seen == $size ) {
+            my $group = join ',', @seen;
+            @seen = ();
+            $score{ $last . ' ' . $group }++ if $last;
+
+            # Tally the bigram
+            $last = $group;
+        }
     }
 }
+use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper\%score);
