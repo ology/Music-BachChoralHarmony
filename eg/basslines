@@ -20,7 +20,6 @@ my %score;
 # Process each song for key and chord
 for my $song ( sort keys %$songs ) {
     my $key = $songs->{$song}{key};
-#    print "SONG: $song in $key\n";
 
     # Get the scale name
     my $name = $key =~ /M/ ? 'major' : 'minor';
@@ -28,7 +27,7 @@ for my $song ( sort keys %$songs ) {
 
     # Get the scale notes
     my @notes = get_scale_notes( $key, $name );
-#    print "KEY: $key, SCALE: $name, NOTES: @notes\n";
+#    print "SONG: $song in $key $name, NOTES: @notes\n";
 
     # The last seen roman group
     my $last;
