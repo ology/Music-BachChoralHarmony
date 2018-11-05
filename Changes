@@ -1,6 +1,9 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
+    - Improve the eq/ roman numeral analysis programs.
+
+0.0104 2018-11-04 13:21:48
     - Add and improve eq/ programs.
 
 0.0103 2018-10-13 15:51:20
