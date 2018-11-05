@@ -4,9 +4,7 @@ use warnings;
 
 # Roman numeral analysis of the most common bass lines.
 
-use List::MoreUtils 'first_index';
 use Music::BachChoralHarmony;
-use Music::Scales;
 use Music::ToRoman;
 
 my $size = shift || 4;
