@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-# Minor / Major ratios
+# Minor / Major chord ratios
 
 use Music::BachChoralHarmony;
 
