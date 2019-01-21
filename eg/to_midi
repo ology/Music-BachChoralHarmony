@@ -12,7 +12,8 @@ use lib '/Users/gene/sandbox/Music-Duration/lib';
 use Music::Duration;
 use Music::Tempo;
 
-my $id = shift || '000106b_';
+my $id  = shift || '000106b_';
+my $bpm = shift || 90;
 
 Music::Duration::tuple( 'wn', 'z', 5 ); # 5 notes in place of one whole note
 
@@ -32,7 +33,7 @@ my @scale = qw( C Cs D Ds E F Fs G Gs A As B );
 my $cn = Music::Chord::Note->new();
 
 my $score = MIDI::Simple->new_score();
-$score->set_tempo( bpm_to_ms(90) * 1000 );
+$score->set_tempo( bpm_to_ms($bpm) * 1000 );
 
 for my $event ( @{ $song->{events} } ) {
     my $note = $event->{bass};
