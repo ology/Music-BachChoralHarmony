@@ -27,4 +27,4 @@ for my $id ( keys %$songs ) {
 for my $id ( keys %score ) {
     $score{$id}->{ratio} = $score{$id}->{minor} / $score{$id}->{major};
 }
-use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper\%score);
+use Data::Dumper;warn(Dumper\%score);
