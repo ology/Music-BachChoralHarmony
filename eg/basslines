@@ -54,4 +54,4 @@ for my $song ( sort keys %$songs ) {
         }
     }
 }
-use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper[map{"$_: $score{$_}"}sort{$score{$a}<=>$score{$b}}keys%score]);
+use Data::Dumper;warn(Dumper[map{"$_: $score{$_}"}sort{$score{$a}<=>$score{$b}}keys%score]);
