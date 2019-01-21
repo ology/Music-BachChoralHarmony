@@ -19,7 +19,7 @@ Music::Duration::tuple( 'wn', 'z', 5 ); # 5 notes in place of one whole note
 
 my $bach = Music::BachChoralHarmony->new;
 my $song = $bach->parse();
-#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper[sort keys%$song]);exit;
+#use Data::Dumper;warn(Dumper[sort keys%$song]);exit;
 
 # Redefine the progression for the given id:
 $song = $song->{$id};
