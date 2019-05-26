@@ -6,6 +6,7 @@ use warnings;
 
 use GraphViz2;
 use Music::BachChoralHarmony;
+use lib $ENV{HOME} . '/sandbox/Music-ToRoman/lib';
 use Music::ToRoman;
 
 my $in_key = shift || 'G_M';
