@@ -50,7 +50,7 @@ for my $song ( sort keys %$songs ) {
         if ( @seen == $size ) {
             my $group = join ',', @seen;
             @seen = ();
-            $score{ $last . ' ' . $group }++ if $last;
+            $score{ $last . ' -> ' . $group }++ if $last;
 
             $last = $group;
         }
