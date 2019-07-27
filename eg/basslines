@@ -4,17 +4,19 @@ use warnings;
 
 # Roman numeral analysis of the most common bass lines.
 
+use Data::Dumper;
 use Music::BachChoralHarmony;
+use lib '/Users/gene/sandbox/Music-ToRoman/lib';
 use Music::ToRoman;
 
-my $size = shift || 4;
+my $size = shift || 4; # Number of notes to consider
 
 my $bach = Music::BachChoralHarmony->new;
 my $songs = $bach->parse();
 
 my %score;
 
-# Process each song for key and chord
+# Process each song
 for my $song ( sort keys %$songs ) {
     my $key = $songs->{$song}{key};
 
@@ -22,12 +24,13 @@ for my $song ( sort keys %$songs ) {
     my $name = $key =~ /M/ ? 'major' : 'minor';
     $key =~ s/_?M//i;
 
+#    print "SONG: $song in $key $name\n";
+
     my $mtr = Music::ToRoman->new(
         scale_note => $key,
         scale_name => $name,
         chords     => 0,
     );
-#    print "SONG: $song in $key $name\n";
 
     # The last seen roman group
     my $last;
@@ -49,9 +52,9 @@ for my $song ( sort keys %$songs ) {
             @seen = ();
             $score{ $last . ' ' . $group }++ if $last;
 
-            # Tally the bigram
             $last = $group;
         }
     }
 }
-use Data::Dumper;warn(Dumper[map{"$_: $score{$_}"}sort{$score{$a}<=>$score{$b}}keys%score]);
+
+print Dumper [ map { "$_: $score{$_}" } sort { $score{$a} <=> $score{$b} } keys %score ];
