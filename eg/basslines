@@ -18,6 +18,8 @@ my %score;
 
 # Process each song
 for my $song ( sort keys %$songs ) {
+    next if $song eq '003907bv' || $song eq '014806bv'; # XXX These keys are not found among the chord notes?
+
     my $key = $songs->{$song}{key};
 
     # Get the scale name
