@@ -19,16 +19,16 @@ my $bach = Music::BachChoralHarmony->new(
 );
 isa_ok $bach, 'Music::BachChoralHarmony';
 
-my $song;
+my $songs;
 lives_ok {
-    $song = $bach->parse;
+    $songs = $bach->parse;
 } 'lives through parse';
 
-is keys %$song, 60, 'parse progression';
+is keys %$songs, 60, 'parse progression';
 
 my $x = '000106b_';
-ok exists $song->{$x}, $x;
-$song = $song->{$x};
+ok exists $songs->{$x}, $x;
+my $song = $songs->{$x};
 
 is $song->{key}, 'F_M', 'key';
 is $song->{bwv}, '1.6', 'bwv';
@@ -38,5 +38,7 @@ is $song->{events}[0]{notes}, '100001000100', 'notes';
 is $song->{events}[0]{bass}, 'F', 'bass';
 is $song->{events}[0]{chord}, 'F_M', 'chord';
 is $song->{events}[0]{accent}, 3, 'accent';
+
+is_deeply $bach->data->{$x}, $song, 'data';
 
 done_testing();

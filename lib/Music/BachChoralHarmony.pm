@@ -73,15 +73,29 @@ has key_title => (
     default => sub { dist_dir('Music-BachChoralHarmony') . '/' . 'jsbach_BWV_keys_titles.txt' },
 );
 
+=head2 data
+
+  $song_data = $bach->data->{$song_name};
+
+The data resulting from the B<parse> method.
+
+=cut
+
+has data => (
+    is       => 'rw',
+    init_arg => undef,
+    default  => sub { {} },
+);
+
 =head1 METHODS
 
-=head2 new()
+=head2 new
 
   $bach = Music::BachChoralHarmony->new();
 
 Create a new C<Music::BachChoralHarmony> object.
 
-=head2 parse()
+=head2 parse
 
   $songs = $bach->parse();
 
@@ -155,7 +169,9 @@ sub parse {
     $csv->eof or die $csv->error_diag();
     close $fh;
 
-    return $progression;
+    $self->data($progression);
+
+    return $self->data;
 }
 
 1;
