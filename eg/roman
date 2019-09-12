@@ -11,6 +11,7 @@ use Music::ToRoman;
 
 my $in_note = shift // ''; # Show all connections if not given
 my $in_key  = shift || 'major'; # maj, minor, min, m
+my $min     = shift // 0;
 
 $in_key = 'major'
     if $in_key eq 'maj';
@@ -74,6 +75,8 @@ my %nodes;
 my %edges;
 
 for my $bigram ( keys %score ) {
+    next if $min && $score{$bigram} <= $min;
+
     my ( $i, $j ) = split ' ', $bigram;
 
     $g->add_node( name => $i )
