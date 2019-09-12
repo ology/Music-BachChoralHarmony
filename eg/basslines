@@ -9,7 +9,7 @@ use Music::BachChoralHarmony;
 use lib '/Users/gene/sandbox/Music-ToRoman/lib';
 use Music::ToRoman;
 
-my $size = shift || 4; # Number of notes to consider
+my $size = shift || 3; # Number of notes to consider
 
 my $bach = Music::BachChoralHarmony->new;
 my $songs = $bach->parse();
