@@ -51,10 +51,13 @@ This module does a few simple things:
 
 3. It combines the Bach BWV number, song title and key with the data.
 
+4. It allows searching by ids, keys, notes, and chords.
+
 The BWV and titles were collected from an old Internet Archive of
 C<jsbchorales.net> and filled-in from C<bach-chorales.com>.  The keys were
 computed with a C<music21> python program and again filled-in from
-C<bach-chorales.com>.  Check out the links in the L</SEE ALSO> section.
+C<bach-chorales.com>.  Check out the links in the L</SEE ALSO> section
+for more information.
 
 See the distribution C<eg/> programs for usage examples.
 
