@@ -382,6 +382,6 @@ L<https://github.com/ology/Bach-Chorales/blob/master/bin/key.py>
 
 =head1 THANK YOU
 
-Dan Book (DBOOK) for the ShareDir clues.
+Dan Book (L<DBOOK|https://metacpan.org/author/DBOOK>) for the ShareDir clues.
 
 =cut
