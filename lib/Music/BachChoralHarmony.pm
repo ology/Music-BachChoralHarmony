@@ -120,8 +120,8 @@ Create a new C<Music::BachChoralHarmony> object.
 
   $songs = $bach->parse();
 
-Parse the B<data_file> and B<key_title> files into a hash reference
-B<data> of each song keyed by the song id.  Each song includes a BWV
+Parse the B<data_file> and B<key_title> files into a B<data> hash
+reference of each song keyed by the song id.  Each song includes a BWV
 identifier, title, key and list of events.  The event list is made of
 hash references with keys for the notes bit string, bass note, the
 accent value and the resonating chord.
