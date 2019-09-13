@@ -2,6 +2,9 @@ Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
     - Improve documentation.
+
+0.0201 2019-09-13 13:33:12
+    - Improve documentation.
     - Add eg/show_chords
     - Refactorize redundant code.
 
