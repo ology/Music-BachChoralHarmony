@@ -65,6 +65,8 @@ See the distribution C<eg/> programs for usage examples.
 
 =head2 data_file
 
+  $file = $bach->data_file;
+
 The local file where the Bach choral harmony data set resides.
 
 Default: C<dist_dir()>/jsbach_chorals_harmony.data
@@ -77,6 +79,8 @@ has data_file => (
 );
 
 =head2 key_title
+
+  $file = $bach->key_title;
 
 The local file where the key signatures and titles for each song are listed by
 BWV number.
@@ -92,9 +96,9 @@ has key_title => (
 
 =head2 data
 
-  $data = $bach->data;
+  $songs = $bach->data;
 
-The data resulting from the B<parse> method.
+The data resulting from the L</parse> method.
 
 =cut
 
@@ -116,10 +120,11 @@ Create a new C<Music::BachChoralHarmony> object.
 
   $songs = $bach->parse();
 
-Parse the B<data_file> and B<key_title> files into a hash reference of each song
-keyed by the song id.  Each song includes a BWV identifier, title, key and list
-of events.  The event list is made of hash references with keys for the notes
-bit string, bass note, the accent value and the resonating chord.
+Parse the B<data_file> and B<key_title> files into a hash reference
+B<data> of each song keyed by the song id.  Each song includes a BWV
+identifier, title, key and list of events.  The event list is made of
+hash references with keys for the notes bit string, bass note, the
+accent value and the resonating chord.
 
 =cut
 
