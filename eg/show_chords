@@ -8,11 +8,30 @@ use Music::BachChoralHarmony;
 my $bach = Music::BachChoralHarmony->new;
 my $songs = $bach->parse();
 
-my %chords = ();
+my %score = ();
 
 for my $song ( keys %$songs ) {
     for my $event ( @{ $songs->{$song}{events} } ) {
-        $chords{ $event->{chord} }++;
+        $score{ $event->{chord} }++;
     }
 }
-print Dumper [ map { "$_ => $chords{$_}" } sort { $chords{$a} <=> $chords{$b} } keys %chords ];
+print Dumper [ map { "$_ => $score{$_}" } sort { $score{$a} <=> $score{$b} } keys %score ];
+__END__
+
+use Chart::Bars;
+my $chart = Chart::Bars->new( 800, 400 );
+
+$chart->set(
+    legend       => 'none',
+    title        => 'Chords of All Chorales',
+    x_label      => 'Chord',
+    y_label      => 'Songs',
+    precision    => 0,
+    include_zero => 'true',
+);
+
+my @sorted = sort { $score{$a} <=> $score{$b} } keys %score;
+$chart->add_dataset( @sorted );
+$chart->add_dataset( map { $score{$_} } @sorted );
+
+$chart->png("$0.png");
