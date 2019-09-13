@@ -329,7 +329,7 @@ sub _search_param {
         my %and_notes = ();
         for my $event ( @{ $self->data->{$id}{events} } ) {
             if ( $and ) {
-                for my $note ( sort keys %notes ) {
+                for my $note ( keys %notes ) {
                     if ( $note eq $event->{$name} ) {
                         $and_notes{$note}++;
                     }
