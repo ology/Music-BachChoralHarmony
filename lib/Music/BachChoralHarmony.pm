@@ -388,6 +388,8 @@ L<Text::CSV>
 
 L<File::ShareDir>
 
+L<List::Util>
+
 L<https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony>
 
 L<https://web.archive.org/web/20140515065053/http://www.jsbchorales.net/bwv.shtml>
