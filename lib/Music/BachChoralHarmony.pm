@@ -218,12 +218,12 @@ of hash references:
   [ { $song_id => $song_data }, ... ],
 
 The B<id>, and B<key> can be searched by single or multiple values
-returning all songs that match.  Separate note names with a C< > space
+returning all songs that match.  Separate note names with a space
 character.
 
 The B<bass>, B<chord>, and B<notes> can be searched either as C<or>
-(separating note names with a C< > space character), or as inclusive
-C<and> (separating note names with an C<&> character).
+(separating note names with a space character), or as inclusive C<and>
+(separating note names with an C<&> character).
 
 =cut
 
