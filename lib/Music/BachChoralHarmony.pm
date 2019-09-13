@@ -217,7 +217,7 @@ returning all songs that match.  Separate note names with a C< > space
 character.
 
 The B<bass>, B<chord>, and B<notes> can be searched either as C<or>
-(separating note names with a C< > space charater), or as inclusive
+(separating note names with a C< > space character), or as inclusive
 C<and> (separating note names with an C<&> character).
 
 =cut
