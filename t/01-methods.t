@@ -49,7 +49,7 @@ is_deeply $bach->search( bass => undef ), [], 'undef bass search';
 is_deeply $bach->search( chord => undef ), [], 'undef chord search';
 is_deeply $bach->search( notes => undef ), [], 'undef notes search';
 
-is scalar( @{ $bach->search( id => $x . ' ' .$y ) } ), 2, 'multiple id search';
+is scalar( @{ $bach->search( id => "$x $y" ) } ), 2, 'multiple id search';
 is scalar( @{ $bach->search( key => 'X_M' ) } ), 0, 'X_M key search';
 is scalar( @{ $bach->search( key => 'C_M' ) } ), 6, 'C key search';
 is scalar( @{ $bach->search( key => 'C_m' ) } ), 1, 'C_m key search';
