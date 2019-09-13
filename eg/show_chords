@@ -10,7 +10,7 @@ my $songs = $bach->parse();
 
 my %chords = ();
 
-for my $song ( sort keys %$songs ) {
+for my $song ( keys %$songs ) {
     for my $event ( @{ $songs->{$song}{events} } ) {
         $chords{ $event->{chord} }++;
     }
