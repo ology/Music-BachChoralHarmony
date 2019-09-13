@@ -11,6 +11,7 @@ use Music::ToRoman;
 
 my $size   = shift || 3; # Number of notes to consider
 my $in_key = shift || 'major'; # maj, minor, min, m
+my $min    = shift // 1;
 
 $in_key = 'major'
     if $in_key eq 'maj';
@@ -68,4 +69,4 @@ for my $song ( sort keys %$songs ) {
     }
 }
 
-print Dumper [ map { "$_: $score{$_}" } sort { $score{$a} <=> $score{$b} } grep { $score{$_} > 1 } keys %score ];
+print Dumper [ map { "$_: $score{$_}" } sort { $score{$a} <=> $score{$b} } grep { $score{$_} > $min } keys %score ];
