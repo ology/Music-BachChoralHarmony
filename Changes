@@ -1,10 +1,10 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
-    - Improve the eq/ roman numeral analysis programs a bit more.
-    - Fix the distribution file exclusions.
     - Make the parse data a proper attribute.
     - Add a handy ->search method for song properties.
+    - Improve the eq/ roman numeral analysis programs a bit more.
+    - Fix the distribution file exclusions.
 
 0.0105 2018-11-05 15:58:25
     - Improve the eq/ roman numeral analysis programs.
