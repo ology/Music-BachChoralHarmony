@@ -242,7 +242,7 @@ sub search {
         my @keys = split /\s+/, $args{key};
         for my $id ( keys %{ $self->data } ) {
             push @results, { $id => $self->data->{$id} }
-                if grep { $_ eq $self->data->{$id}{key} } @keys;
+                if any { $_ eq $self->data->{$id}{key} } @keys;
         }
     }
     elsif ( $args{bass} ) {
