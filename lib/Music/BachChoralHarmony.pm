@@ -27,15 +27,15 @@ use List::Util qw/ any /;
 
   $songs = $bach->search( id => '000106b_' );
   $songs = $bach->search( id => '000106b_ 000206b_' );
-  $songs = $bach->search( key => 'C_M' ); # In C major
-  $songs = $bach->search( key => 'C_M C_m' ); # In C major or C minor
-  $songs = $bach->search( bass => 'C' );  # With a C note in the bass
-  $songs = $bach->search( bass => 'C D' );  # With C or D in the bass
-  $songs = $bach->search( bass => 'C & D' );  # With C and D in the bass
-  $songs = $bach->search( chord => 'C_M' ); # With a C major chord
-  $songs = $bach->search( chord => 'C_M D_m' ); # With a C major or a D minor chord
+  $songs = $bach->search( key => 'C_M' );         # In C major
+  $songs = $bach->search( key => 'C_M C_m' );     # In C major or C minor
+  $songs = $bach->search( bass => 'C' );          # With a C note in the bass
+  $songs = $bach->search( bass => 'C D' );        # With C or D in the bass
+  $songs = $bach->search( bass => 'C & D' );      # With C and D in the bass
+  $songs = $bach->search( chord => 'C_M' );       # With a C major chord
+  $songs = $bach->search( chord => 'C_M D_m' );   # With a C major or a D minor chord
   $songs = $bach->search( chord => 'C_M & D_m' ); # With a C major and a D minor chord
-  $songs = $bach->search( notes => 'C E G' ); # With the notes C or E or G
+  $songs = $bach->search( notes => 'C E G' );     # With the notes C or E or G
   $songs = $bach->search( notes => 'C & E & G' ); # With C and E and G
 
 =head1 DESCRIPTION
@@ -200,16 +200,16 @@ sub parse {
 
   $songs = $bach->search( id => '000106b_' ); # Single song
   $songs = $bach->search( id => '000106b_ 000206b_' ); # Two songs
-  $songs = $bach->search( key => 'C_M' ); # All C major key songs
-  $songs = $bach->search( key => 'C_M C_m' ); # All C major and C minor key songs
-  $songs = $bach->search( bass => 'C' ); # All songs with a C in the bassline
-  $songs = $bach->search( bass => 'C D' ); # All songs with a C or a D in the bassline
-  $songs = $bach->search( bass => 'C & D' );  # All songs with a C and a D in the bassline
-  $songs = $bach->search( chord => 'C_M' ); # All songs containing a C major chord
-  $songs = $bach->search( chord => 'C_M D_m' ); # All songs with C major or D minor chords
-  $songs = $bach->search( chord => 'C_M & D_m' ); # All songs with both C major and D minor chords
-  $songs = $bach->search( notes => 'C E G' ); # All songs containing the notes C or E or G
-  $songs = $bach->search( notes => 'C & E & G' ); # All songs containing the notes C and E and G
+  $songs = $bach->search( key => 'C_M' );         # All C major key songs
+  $songs = $bach->search( key => 'C_M C_m' );     # All in C major and C minor keys
+  $songs = $bach->search( bass => 'C' );          # All with a C in the bass
+  $songs = $bach->search( bass => 'C D' );        # With a C or a D in the bass
+  $songs = $bach->search( bass => 'C & D' );      # With a C and a D in the bass
+  $songs = $bach->search( chord => 'C_M' );       # With a C major chord
+  $songs = $bach->search( chord => 'C_M D_m' );   # With C major or D minor chords
+  $songs = $bach->search( chord => 'C_M & D_m' ); # With both C major and D minor chords
+  $songs = $bach->search( notes => 'C E G' );     # With the notes C or E or G
+  $songs = $bach->search( notes => 'C & E & G' ); # With the notes C and E and G
 
 Search the parsed result B<data> by song B<id>s, B<key>s, B<bass>
 notes, B<chord>s, or individual B<notes> and return an array reference
