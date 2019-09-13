@@ -2,7 +2,7 @@ package Music::BachChoralHarmony;
 
 # ABSTRACT: Parse the UCI Bach choral harmony data set
 
-our $VERSION = '0.0105';
+our $VERSION = '0.0200';
 
 use Moo;
 use strictures 2;
@@ -10,6 +10,7 @@ use namespace::clean;
 
 use Text::CSV;
 use File::ShareDir 'dist_dir';
+use List::Util qw/ any /;
 
 =head1 SYNOPSIS
 
@@ -23,6 +24,19 @@ use File::ShareDir 'dist_dir';
 
   # show all the song titles:
   print Dumper [ map { $songs->{$_}{title} } keys %$songs ];
+
+  $songs = $bach->search( id => '000106b_' );
+  $songs = $bach->search( id => '000106b_ 000206b_' );
+  $songs = $bach->search( key => 'C_M' ); # In C major
+  $songs = $bach->search( key => 'C_M C_m' ); # In C major or C minor
+  $songs = $bach->search( bass => 'C' );  # With a C note in the bass
+  $songs = $bach->search( bass => 'C D' );  # With C or D in the bass
+  $songs = $bach->search( bass => 'C & D' );  # With C and D in the bass
+  $songs = $bach->search( chord => 'C_M' ); # With a C major chord
+  $songs = $bach->search( chord => 'C_M D_m' ); # With a C major or a D minor chord
+  $songs = $bach->search( chord => 'C_M & D_m' ); # With a C major and a D minor chord
+  $songs = $bach->search( notes => 'C E G' ); # With the notes C or E or G
+  $songs = $bach->search( notes => 'C & E & G' ); # With C and E and G
 
 =head1 DESCRIPTION
 
@@ -75,7 +89,7 @@ has key_title => (
 
 =head2 data
 
-  $song_data = $bach->data->{$song_name};
+  $data = $bach->data;
 
 The data resulting from the B<parse> method.
 
@@ -172,6 +186,187 @@ sub parse {
     $self->data($progression);
 
     return $self->data;
+}
+
+=head2 search
+
+  $songs = $bach->search( id => '000106b_' ); # Single song
+  $songs = $bach->search( id => '000106b_ 000206b_' ); # Two songs
+  $songs = $bach->search( key => 'C_M' ); # All C major key songs
+  $songs = $bach->search( key => 'C_M C_m' ); # All C major and C minor key songs
+  $songs = $bach->search( bass => 'C' ); # All songs with a C in the bassline
+  $songs = $bach->search( bass => 'C D' ); # All songs with a C or a D in the bassline
+  $songs = $bach->search( bass => 'C & D' );  # All songs with a C and a D in the bassline
+  $songs = $bach->search( chord => 'C_M' ); # All songs containing a C major chord
+  $songs = $bach->search( chord => 'C_M D_m' ); # All songs with C major or D minor chords
+  $songs = $bach->search( chord => 'C_M & D_m' ); # All songs with both C major and D minor chords
+  $songs = $bach->search( notes => 'C E G' ); # All songs containing the notes C or E or G
+  $songs = $bach->search( notes => 'C & E & G' ); # All songs containing the notes C and E and G
+
+Search the parsed result B<data> by song B<id>s, B<key>s, B<bass>
+notes, B<chord>s, or individual B<notes> and return an array reference
+of hash references:
+
+  [ { $song_id => $song_data }, ... ],
+
+The B<id>, and B<key> can be searched by single or multiple values
+returning all songs that match.  Separate note names with a C< > space
+character.
+
+The B<bass>, B<chord>, and B<notes> can be searched either as C<or>
+(separating note names with a C< > space charater), or as inclusive
+C<and> (separating note names with an C<&> character).
+
+=cut
+
+sub search {
+    my ( $self, %args ) = @_;
+
+    my @results = ();
+
+    if ( $args{id} ) {
+        my @ids = split /\s+/, $args{id};
+        for my $id ( @ids ) {
+            push @results, { $id => $self->data->{$id} };
+        }
+    }
+    elsif ( $args{key} ) {
+        my @keys = split /\s+/, $args{key};
+        for my $id ( keys %{ $self->data } ) {
+            push @results, { $id => $self->data->{$id} }
+                if grep { $_ eq $self->data->{$id}{key} } @keys;
+        }
+    }
+    elsif ( $args{bass} ) {
+        my $and = $args{bass} =~ /&/ ? 1 : 0;
+        my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
+        my %notes = ();
+        @notes{ split $re, $args{bass} } = undef;
+
+        ID: for my $id ( keys %{ $self->data } ) {
+            my %and_notes = ();
+            for my $event ( @{ $self->data->{$id}{events} } ) {
+                if ( $and ) {
+                    for my $note ( sort keys %notes ) {
+                        if ( $note eq $event->{bass} ) {
+                            $and_notes{$note}++;
+                        }
+                    }
+                }
+                else {
+                    if ( any { $_ eq $event->{bass} } keys %notes ) {
+                        push @results, { $id => $self->data->{$id} };
+                        next ID;
+                    }
+                }
+            }
+            if ( keys %and_notes ) {
+                my $i = 0;
+                for my $n ( keys %and_notes ) {
+                    $i++
+                        if exists $notes{$n};
+                }
+                push @results, { $id => $self->data->{$id} }
+                    if $i == scalar keys %notes;
+            }
+        }
+    }
+    elsif ( $args{chord} ) {
+        my $and = $args{chord} =~ /&/ ? 1 : 0;
+        my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
+        my %notes = ();
+        @notes{ split $re, $args{chord} } = undef;
+
+        ID: for my $id ( keys %{ $self->data } ) {
+            my %and_notes = ();
+            for my $event ( @{ $self->data->{$id}{events} } ) {
+                if ( $and ) {
+                    for my $note ( sort keys %notes ) {
+                        if ( $note eq $event->{chord} ) {
+                            $and_notes{$note}++;
+                        }
+                    }
+                }
+                else {
+                    if ( any { $_ eq $event->{chord} } keys %notes ) {
+                        push @results, { $id => $self->data->{$id} };
+                        next ID;
+                    }
+                }
+            }
+            if ( keys %and_notes ) {
+                my $i = 0;
+                for my $n ( keys %and_notes ) {
+                    $i++
+                        if exists $notes{$n};
+                }
+                push @results, { $id => $self->data->{$id} }
+                    if $i == scalar keys %notes;
+            }
+        }
+    }
+    elsif ( $args{notes} ) {
+        my $and = $args{notes} =~ /&/ ? 1 : 0;
+        my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
+        my @notes = split $re, $args{notes};
+        my %index = (
+            'C'  => 0,
+            'C#' => 1,
+            'Db' => 1,
+            'D'  => 2,
+            'D#' => 3,
+            'Eb' => 3,
+            'E'  => 4,
+            'F'  => 5,
+            'F#' => 6,
+            'Gb' => 6,
+            'G'  => 7,
+            'G#' => 8,
+            'Ab' => 8,
+            'A'  => 9,
+            'A#' => 10,
+            'Bb' => 10,
+            'B'  => 11,
+        );
+        ID: for my $id ( keys %{ $self->data } ) {
+            my %and_notes = ();
+            for my $event ( @{ $self->data->{$id}{events} } ) {
+                my @bitstring = split //, $event->{notes};
+                my $i = 0;
+                for my $bit ( @bitstring ) {
+                    if ( $bit ) {
+                        if ( $and ) {
+                            for my $note ( sort @notes ) {
+                                if ( defined $index{$note} && $i == $index{$note} ) {
+                                    $and_notes{$note}++;
+                                }
+                            }
+                        }
+                        else {
+                            if ( any { defined $index{$_} && $i == $index{$_} } @notes ) {
+                                push @results, { $id => $self->data->{$id} };
+                                next ID;
+                            }
+                        }
+                    }
+                    $i++;
+                }
+            }
+            if ( keys %and_notes ) {
+                my %notes;
+                @notes{@notes} = undef;
+                my $i = 0;
+                for my $n ( keys %and_notes ) {
+                    $i++
+                        if exists $notes{$n};
+                }
+                push @results, { $id => $self->data->{$id} }
+                    if $i == scalar keys %notes;
+            }
+        }
+    }
+
+    return \@results;
 }
 
 1;
