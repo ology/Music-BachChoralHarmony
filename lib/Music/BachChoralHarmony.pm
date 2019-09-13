@@ -246,72 +246,10 @@ sub search {
         }
     }
     elsif ( $args{bass} ) {
-        my $and = $args{bass} =~ /&/ ? 1 : 0;
-        my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
-        my %notes = ();
-        @notes{ split $re, $args{bass} } = undef;
-
-        ID: for my $id ( keys %{ $self->data } ) {
-            my %and_notes = ();
-            for my $event ( @{ $self->data->{$id}{events} } ) {
-                if ( $and ) {
-                    for my $note ( sort keys %notes ) {
-                        if ( $note eq $event->{bass} ) {
-                            $and_notes{$note}++;
-                        }
-                    }
-                }
-                else {
-                    if ( any { $_ eq $event->{bass} } keys %notes ) {
-                        push @results, { $id => $self->data->{$id} };
-                        next ID;
-                    }
-                }
-            }
-            if ( keys %and_notes ) {
-                my $i = 0;
-                for my $n ( keys %and_notes ) {
-                    $i++
-                        if exists $notes{$n};
-                }
-                push @results, { $id => $self->data->{$id} }
-                    if $i == scalar keys %notes;
-            }
-        }
+        @results = $self->_search_param( bass => $args{bass} );
     }
     elsif ( $args{chord} ) {
-        my $and = $args{chord} =~ /&/ ? 1 : 0;
-        my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
-        my %notes = ();
-        @notes{ split $re, $args{chord} } = undef;
-
-        ID: for my $id ( keys %{ $self->data } ) {
-            my %and_notes = ();
-            for my $event ( @{ $self->data->{$id}{events} } ) {
-                if ( $and ) {
-                    for my $note ( sort keys %notes ) {
-                        if ( $note eq $event->{chord} ) {
-                            $and_notes{$note}++;
-                        }
-                    }
-                }
-                else {
-                    if ( any { $_ eq $event->{chord} } keys %notes ) {
-                        push @results, { $id => $self->data->{$id} };
-                        next ID;
-                    }
-                }
-            }
-            if ( keys %and_notes ) {
-                my $i = 0;
-                for my $n ( keys %and_notes ) {
-                    $i++
-                        if exists $notes{$n};
-                }
-                push @results, { $id => $self->data->{$id} }
-                    if $i == scalar keys %notes;
-            }
-        }
+        @results = $self->_search_param( chord => $args{chord} );
     }
     elsif ( $args{notes} ) {
         my $and = $args{notes} =~ /&/ ? 1 : 0;
@@ -376,6 +314,48 @@ sub search {
 
     return \@results;
 }
+
+sub _search_param {
+    my ( $self, $name, $param ) = @_;
+
+    my @results = ();
+
+    my $and = $param =~ /&/ ? 1 : 0;
+    my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
+    my %notes = ();
+    @notes{ split $re, $param } = undef;
+
+    ID: for my $id ( keys %{ $self->data } ) {
+        my %and_notes = ();
+        for my $event ( @{ $self->data->{$id}{events} } ) {
+            if ( $and ) {
+                for my $note ( sort keys %notes ) {
+                    if ( $note eq $event->{$name} ) {
+                        $and_notes{$note}++;
+                    }
+                }
+            }
+            else {
+                if ( any { $_ eq $event->{$name} } keys %notes ) {
+                    push @results, { $id => $self->data->{$id} };
+                    next ID;
+                }
+            }
+        }
+        if ( keys %and_notes ) {
+            my $i = 0;
+            for my $n ( keys %and_notes ) {
+                $i++
+                    if exists $notes{$n};
+            }
+            push @results, { $id => $self->data->{$id} }
+                if $i == scalar keys %notes;
+        }
+    }
+
+    return @results;
+}
+
 
 1;
 __END__
