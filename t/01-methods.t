@@ -41,9 +41,9 @@ is $song->{events}[0]{chord}, 'F_M', 'chord';
 is $song->{events}[0]{accent}, 3, 'accent';
 
 is_deeply $bach->data->{$x}, $song, 'data';
+is_deeply $bach->search( id => $x ), [ { $x => $song } ], 'id search';
 is_deeply $bach->search, [], 'no args search';
 is_deeply $bach->search( id => undef ), [], 'undef id search';
-is_deeply $bach->search( id => $x ), [ { $x => $song } ], 'id search';
 is_deeply $bach->search( key => undef ), [], 'undef key search';
 is_deeply $bach->search( bass => undef ), [], 'undef bass search';
 is_deeply $bach->search( chord => undef ), [], 'undef chord search';
