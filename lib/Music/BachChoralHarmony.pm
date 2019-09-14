@@ -53,12 +53,11 @@ This module does a few simple things:
 
 4. It allows searching by ids, keys, notes, and chords.
 
-The BWV and titles were collected from an old Internet Archive of
-C<jsbchorales.net> and filled-in from L<https://bach-chorales.com/>.
-The keys were computed with a L<music21|https://web.mit.edu/music21/>
-python program, and if missing filled-in again from
-L<https://bach-chorales.com/>.  Check out the links in the
-L</SEE ALSO> section for more information.
+The BWV and titles were collected from an Internet Archive and
+filled-in from L<https://bach-chorales.com/>.  The keys were computed
+with a L<music21|https://web.mit.edu/music21/> program, and if missing
+filled-in again from L<https://bach-chorales.com/>.  Check out the
+links in the L</SEE ALSO> section for more information.
 
 =head1 ATTRIBUTES
 
