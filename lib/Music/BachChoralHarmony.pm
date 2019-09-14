@@ -9,7 +9,7 @@ use strictures 2;
 use namespace::clean;
 
 use Text::CSV;
-use File::ShareDir 'dist_dir';
+use File::ShareDir qw/ dist_dir /;
 use List::Util qw/ any /;
 
 =head1 SYNOPSIS
