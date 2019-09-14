@@ -322,11 +322,13 @@ sub _search_param {
 
     my $and = $param =~ /&/ ? 1 : 0;
     my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
+
     my %notes = ();
     @notes{ split $re, $param } = undef;
 
     ID: for my $id ( keys %{ $self->data } ) {
         my %and_notes = ();
+
         for my $event ( @{ $self->data->{$id}{events} } ) {
             if ( $and ) {
                 for my $note ( keys %notes ) {
@@ -342,12 +344,15 @@ sub _search_param {
                 }
             }
         }
+
         if ( keys %and_notes ) {
             my $i = 0;
+
             for my $n ( keys %and_notes ) {
                 $i++
                     if exists $notes{$n};
             }
+
             push @results, { $id => $self->data->{$id} }
                 if $i == scalar keys %notes;
         }
