@@ -213,6 +213,8 @@ The B<bass>, B<chord>, and B<notes> can be searched either as C<or>
 (separating note names with a space character), or as inclusive C<and>
 (separating note names with an C<&> character).
 
+* The items to search for cannot be combined at this time.
+
 =cut
 
 sub search {
