@@ -386,6 +386,9 @@ is the dataset itself.
 L<https://web.archive.org/web/20140515065053/http://www.jsbchorales.net/bwv.shtml>
 was the original site.
 
+L<http://www.bach-chorales.com/BachChorales.htm>
+is a more modern site.
+
 L<https://github.com/ology/Bach-Chorales/>
 is a web app that displays chord transitions with this module.
 
@@ -394,8 +397,6 @@ is a program written to extract the key signature.
 
 L<https://github.com/ology/Bach-Chorales/blob/master/chorales.zip>
 are the collected MIDI files and PDF transcriptions.
-
-L<http://www.bach-chorales.com/BachChorales.htm>
 
 =head1 THANK YOU
 
