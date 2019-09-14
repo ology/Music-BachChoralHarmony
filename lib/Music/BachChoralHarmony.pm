@@ -56,7 +56,7 @@ This module does a few simple things:
 The BWV and titles were collected from an old Internet Archive of
 C<jsbchorales.net> and filled-in from L<https://bach-chorales.com/>.
 The keys were computed with a L<music21|https://web.mit.edu/music21/>
-python program and if missing, filled-in from
+python program, and if missing filled-in again from
 L<https://bach-chorales.com/>.  Check out the links in the
 L</SEE ALSO> section for more information.
 
@@ -122,8 +122,8 @@ Create a new C<Music::BachChoralHarmony> object.
 Parse the B<data_file> and B<key_title> files into a B<data> hash
 reference of each song keyed by the song id.  Each song includes a BWV
 identifier, title, key and list of events.  The event list is made of
-hash references with keys for the notes bit string, bass note, the
-accent value and the resonating chord.
+hash references with a B<notes> bit string, B<bass> note, the
+B<accent> value and the resonating B<chord>.
 
 =cut
 
