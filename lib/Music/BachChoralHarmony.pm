@@ -20,10 +20,10 @@ use List::Util qw/ any /;
   my $songs = $bach->parse;
 
   # show all the song ids:
-  print Dumper [ keys %$songs ];
+  print Dumper [ sort keys %$songs ];
 
   # show all the song titles:
-  print Dumper [ map { $songs->{$_}{title} } keys %$songs ];
+  print Dumper [ map { $songs->{$_}{title} } sort keys %$songs ];
 
   $songs = $bach->search( id => '000106b_' );
   $songs = $bach->search( id => '000106b_ 000206b_' );
@@ -380,6 +380,8 @@ __END__
 
 =head1 SEE ALSO
 
+The F<eg/*> and F<t/01-methods.t> files
+
 L<Moo>
 
 L<Text::CSV>
@@ -394,9 +396,9 @@ L<https://web.archive.org/web/20140515065053/http://www.jsbchorales.net/bwv.shtm
 
 L<http://www.bach-chorales.com/BachChorales.htm>
 
-L<http://web.mit.edu/music21/>
-
 L<https://github.com/ology/Bach-Chorales/blob/master/bin/key.py>
+
+L<https://github.com/ology/Bach-Chorales/blob/master/chorales.zip> are the collected MIDI files and PDF transcriptions.
 
 =head1 THANK YOU
 
