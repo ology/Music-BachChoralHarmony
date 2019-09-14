@@ -74,7 +74,7 @@ Default: C<dist_dir()>/jsbach_chorals_harmony.data
 
 has data_file => (
     is      => 'ro',
-    default => sub { dist_dir('Music-BachChoralHarmony') . '/' . 'jsbach_chorals_harmony.data' },
+    default => sub { dist_dir('Music-BachChoralHarmony') . '/jsbach_chorals_harmony.data' },
 );
 
 =head2 key_title
@@ -90,7 +90,7 @@ Default: C<dist_dir()>/jsbach_BWV_keys_titles.txt
 
 has key_title => (
     is      => 'ro',
-    default => sub { dist_dir('Music-BachChoralHarmony') . '/' . 'jsbach_BWV_keys_titles.txt' },
+    default => sub { dist_dir('Music-BachChoralHarmony') . '/jsbach_BWV_keys_titles.txt' },
 );
 
 =head2 data
