@@ -201,13 +201,13 @@ sub parse {
 
 Search the parsed result B<data> by song B<id>s, B<key>s, B<bass>
 notes, B<chord>s, or individual B<notes> and return an array reference
-of hash references:
+of hash references of the format:
 
   [ { $song_id => $song_data }, ... ],
 
 The B<id>, and B<key> can be searched by single or multiple values
-returning all songs that match.  Separate note names with a space
-character.
+returning all songs that match.  Note names must be separated with a
+space character.
 
 The B<bass>, B<chord>, and B<notes> can be searched either as C<or>
 (separating note names with a space character), or as inclusive C<and>
