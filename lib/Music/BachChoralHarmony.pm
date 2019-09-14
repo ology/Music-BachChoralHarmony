@@ -381,17 +381,23 @@ L<File::ShareDir>
 L<List::Util>
 
 L<https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony>
+is the dataset itself.
 
 L<https://web.archive.org/web/20140515065053/http://www.jsbchorales.net/bwv.shtml>
-
-L<http://www.bach-chorales.com/BachChorales.htm>
+was the original site.
 
 L<https://github.com/ology/Bach-Chorales/blob/master/bin/key.py>
+is a program written to extract the key signature.
 
-L<https://github.com/ology/Bach-Chorales/blob/master/chorales.zip> are the collected MIDI files and PDF transcriptions.
+L<https://github.com/ology/Bach-Chorales/blob/master/chorales.zip>
+are the collected MIDI files and PDF transcriptions.
+
+L<http://www.bach-chorales.com/BachChorales.htm>
+is a Dancer2 web app that displays chord transitions.
 
 =head1 THANK YOU
 
-Dan Book (L<DBOOK|https://metacpan.org/author/DBOOK>) for the ShareDir clues.
+Dan Book (L<DBOOK|https://metacpan.org/author/DBOOK>)
+for the ShareDir clues.
 
 =cut
