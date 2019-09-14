@@ -60,8 +60,6 @@ python program and if missing, filled-in from
 L<https://bach-chorales.com/>.  Check out the links in the
 L</SEE ALSO> section for more information.
 
-See the distribution C<eg/> programs for usage examples.
-
 =head1 ATTRIBUTES
 
 =head2 data_file
