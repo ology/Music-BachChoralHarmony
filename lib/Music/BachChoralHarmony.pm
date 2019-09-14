@@ -197,18 +197,7 @@ sub parse {
 
 =head2 search
 
-  $songs = $bach->search( id => '000106b_' ); # Single song
-  $songs = $bach->search( id => '000106b_ 000206b_' ); # Two songs
-  $songs = $bach->search( key => 'C_M' );         # All C major key songs
-  $songs = $bach->search( key => 'C_M C_m' );     # All in C major and C minor keys
-  $songs = $bach->search( bass => 'C' );          # All with a C in the bass
-  $songs = $bach->search( bass => 'C D' );        # With a C or a D in the bass
-  $songs = $bach->search( bass => 'C & D' );      # With a C and a D in the bass
-  $songs = $bach->search( chord => 'C_M' );       # With a C major chord
-  $songs = $bach->search( chord => 'C_M D_m' );   # With C major or D minor chords
-  $songs = $bach->search( chord => 'C_M & D_m' ); # With both C major and D minor chords
-  $songs = $bach->search( notes => 'C E G' );     # With the notes C or E or G
-  $songs = $bach->search( notes => 'C & E & G' ); # With the notes C and E and G
+  $songs = $bach->search( $k => $v ); # As in the SYNOPSIS above
 
 Search the parsed result B<data> by song B<id>s, B<key>s, B<bass>
 notes, B<chord>s, or individual B<notes> and return an array reference
