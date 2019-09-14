@@ -27,7 +27,7 @@ lives_ok {
 is keys %$songs, 60, 'parse progression';
 
 my $x = '000106b_';
-my $y = '000206b_';
+my $y = '002806b_';
 ok exists $songs->{$x}, $x;
 my $song = $songs->{$x};
 
