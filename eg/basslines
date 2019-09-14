@@ -69,4 +69,4 @@ for my $song ( sort keys %$songs ) {
     }
 }
 
-print Dumper [ map { "$_: $score{$_}" } sort { $score{$a} <=> $score{$b} } grep { $score{$_} > $min } keys %score ];
+print Dumper [ map { "$_: $score{$_}" } sort { $score{$a} <=> $score{$b} } grep { $score{$_} >= $min } keys %score ];
