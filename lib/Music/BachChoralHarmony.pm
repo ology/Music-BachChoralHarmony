@@ -234,12 +234,14 @@ sub search {
 
     if ( $args{id} ) {
         my @ids = split /\s+/, $args{id};
+
         for my $id ( @ids ) {
             push @results, { $id => $self->data->{$id} };
         }
     }
     elsif ( $args{key} ) {
         my @keys = split /\s+/, $args{key};
+
         for my $id ( keys %{ $self->data } ) {
             push @results, { $id => $self->data->{$id} }
                 if any { $_ eq $self->data->{$id}{key} } @keys;
@@ -254,7 +256,9 @@ sub search {
     elsif ( $args{notes} ) {
         my $and = $args{notes} =~ /&/ ? 1 : 0;
         my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
+
         my @notes = split $re, $args{notes};
+
         my %index = (
             'C'  => 0,
             'C#' => 1,
@@ -274,11 +278,15 @@ sub search {
             'Bb' => 10,
             'B'  => 11,
         );
+
         ID: for my $id ( keys %{ $self->data } ) {
             my %and_notes = ();
+
             for my $event ( @{ $self->data->{$id}{events} } ) {
                 my @bitstring = split //, $event->{notes};
+
                 my $i = 0;
+
                 for my $bit ( @bitstring ) {
                     if ( $bit ) {
                         if ( $and ) {
@@ -295,17 +303,22 @@ sub search {
                             }
                         }
                     }
+
                     $i++;
                 }
             }
+
             if ( keys %and_notes ) {
                 my %notes;
                 @notes{@notes} = undef;
+
                 my $i = 0;
+
                 for my $n ( keys %and_notes ) {
                     $i++
                         if exists $notes{$n};
                 }
+
                 push @results, { $id => $self->data->{$id} }
                     if $i == scalar keys %notes;
             }
