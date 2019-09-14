@@ -370,7 +370,7 @@ __END__
 
 =head1 SEE ALSO
 
-The F<eg/*> and F<t/01-methods.t> files
+The F<eg/*> and F<t/01-methods.t> files in this distribution.
 
 L<Moo>
 
