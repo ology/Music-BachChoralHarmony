@@ -200,10 +200,10 @@ sub parse {
   $songs = $bach->search( $k => $v ); # As in the SYNOPSIS above
 
 Search the parsed result B<data> by song B<id>s, B<key>s, B<bass>
-notes, B<chord>s, or individual B<notes> and return an array reference
-of hash references of the format:
+notes, B<chord>s, or individual B<notes> and return a hash reference
+of the format:
 
-  [ { $song_id => $song_data }, ... ],
+  { $song_id => $song_data, ... }
 
 The B<id>, and B<key> can be searched by single or multiple values
 returning all songs that match.  Note names must be separated with a
@@ -220,28 +220,28 @@ The B<bass>, B<chord>, and B<notes> can be searched either as C<or>
 sub search {
     my ( $self, %args ) = @_;
 
-    my @results = ();
+    my %results = ();
 
     if ( $args{id} ) {
         my @ids = split /\s+/, $args{id};
 
         for my $id ( @ids ) {
-            push @results, { $id => $self->data->{$id} };
+            $results{$id} = $self->data->{$id};
         }
     }
     elsif ( $args{key} ) {
         my @keys = split /\s+/, $args{key};
 
         for my $id ( keys %{ $self->data } ) {
-            push @results, { $id => $self->data->{$id} }
+            $results{$id} = $self->data->{$id}
                 if any { $_ eq $self->data->{$id}{key} } @keys;
         }
     }
     elsif ( $args{bass} ) {
-        @results = $self->_search_param( bass => $args{bass} );
+        %results = $self->_search_param( bass => $args{bass} );
     }
     elsif ( $args{chord} ) {
-        @results = $self->_search_param( chord => $args{chord} );
+        %results = $self->_search_param( chord => $args{chord} );
     }
     elsif ( $args{notes} ) {
         my $and = $args{notes} =~ /&/ ? 1 : 0;
@@ -288,7 +288,7 @@ sub search {
                         }
                         else {
                             if ( any { defined $index{$_} && $i == $index{$_} } @notes ) {
-                                push @results, { $id => $self->data->{$id} };
+                                $results{$id} = $self->data->{$id};
                                 next ID;
                             }
                         }
@@ -309,19 +309,19 @@ sub search {
                         if exists $notes{$n};
                 }
 
-                push @results, { $id => $self->data->{$id} }
+                $results{$id} = $self->data->{$id}
                     if $i == scalar keys %notes;
             }
         }
     }
 
-    return \@results;
+    return \%results;
 }
 
 sub _search_param {
     my ( $self, $name, $param ) = @_;
 
-    my @results = ();
+    my %results = ();
 
     my $and = $param =~ /&/ ? 1 : 0;
     my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
@@ -342,7 +342,7 @@ sub _search_param {
             }
             else {
                 if ( any { $_ eq $event->{$name} } keys %notes ) {
-                    push @results, { $id => $self->data->{$id} };
+                    $results{$id} = $self->data->{$id};
                     next ID;
                 }
             }
@@ -356,12 +356,12 @@ sub _search_param {
                     if exists $notes{$n};
             }
 
-            push @results, { $id => $self->data->{$id} }
+            $results{$id} = $self->data->{$id}
                 if $i == scalar keys %notes;
         }
     }
 
-    return @results;
+    return %results;
 }
 
 
