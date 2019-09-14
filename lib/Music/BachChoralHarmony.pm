@@ -386,6 +386,9 @@ is the dataset itself.
 L<https://web.archive.org/web/20140515065053/http://www.jsbchorales.net/bwv.shtml>
 was the original site.
 
+L<https://github.com/ology/Bach-Chorales/>
+is a web app that displays chord transitions with this module.
+
 L<https://github.com/ology/Bach-Chorales/blob/master/bin/key.py>
 is a program written to extract the key signature.
 
