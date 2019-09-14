@@ -393,7 +393,6 @@ L<https://github.com/ology/Bach-Chorales/blob/master/chorales.zip>
 are the collected MIDI files and PDF transcriptions.
 
 L<http://www.bach-chorales.com/BachChorales.htm>
-is a Dancer2 web app that displays chord transitions.
 
 =head1 THANK YOU
 
