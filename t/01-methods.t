@@ -30,7 +30,7 @@ my $x = '000106b_'; # F_M
 my $y = '002806b_'; # A_m
 my $z = '001207b_'; # BbM
 
-ok exists $songs->{$x}, $x;
+ok exists $songs->{$x}, "$x exists";
 my $song = $songs->{$x};
 
 is $song->{key}, 'F_M', 'key';
@@ -111,5 +111,26 @@ is scalar( keys %{ $bach->search( id => $z, notes => 'Bb' ) } ), 1, 'id and note
 is scalar( keys %{ $bach->search( id => $z, notes => 'B' ) } ), 0, 'id and !note search';
 is scalar( keys %{ $bach->search( id => $z, notes => 'Bb B' ) } ), 1, 'id and notes search';
 is scalar( keys %{ $bach->search( id => $z, notes => 'Bb & B' ) } ), 0, 'id and !notes search';
+
+is_deeply $bach->bits2notes('000000000000'), [], 'empty bits2notes';
+is_deeply $bach->bits2notes('100000000000'), [ 'C' ], '1 natural bits2notes';
+is_deeply $bach->bits2notes('010000000000'), [ 'Db' ], '1 flat bits2notes';
+is_deeply $bach->bits2notes('010000000000', '#' ), [ 'C#' ], '1 sharp bits2notes';
+is_deeply $bach->bits2notes('001000000000'), [ 'D' ], '1 natural bits2notes';
+is_deeply $bach->bits2notes('000100000000'), [ 'Eb' ], '1 flat bits2notes';
+is_deeply $bach->bits2notes('000100000000', '#' ), [ 'D#' ], '1 sharp bits2notes';
+is_deeply $bach->bits2notes('000010000000'), [ 'E' ], '1 natural bits2notes';
+is_deeply $bach->bits2notes('000001000000'), [ 'F' ], '1 natural bits2notes';
+is_deeply $bach->bits2notes('000000100000'), [ 'Gb' ], '1 flat bits2notes';
+is_deeply $bach->bits2notes('000000100000', '#' ), [ 'F#' ], '1 sharp bits2notes';
+is_deeply $bach->bits2notes('000000010000'), [ 'G' ], '1 natural bits2notes';
+is_deeply $bach->bits2notes('000000001000'), [ 'Ab' ], '1 flat bits2notes';
+is_deeply $bach->bits2notes('000000001000', '#' ), [ 'G#' ], '1 sharp bits2notes';
+is_deeply $bach->bits2notes('000000000100'), [ 'A' ], '1 natural bits2notes';
+is_deeply $bach->bits2notes('000000000010'), [ 'Bb' ], '1 flat bits2notes';
+is_deeply $bach->bits2notes('000000000010', '#' ), [ 'A#' ], '1 sharp bits2notes';
+is_deeply $bach->bits2notes('000000000001'), [ 'B' ], '1 natural bits2notes';
+is_deeply $bach->bits2notes('100000000010'), [ 'C', 'Bb' ], '2 flat bits2notes';
+is_deeply $bach->bits2notes( '100000000010', '#' ), [ 'C', 'A#' ], '2 sharp bits2notes';
 
 done_testing();
