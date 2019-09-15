@@ -1,6 +1,9 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
+    - Remove redundant documentation.
+
+0.0400 2019-09-15 13:06:40
     - Add the ->bits2notes method to convert the UCI 12-bit binary strings to a named note list.
 
 0.0302 2019-09-15 07:07:36
