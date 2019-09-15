@@ -2,7 +2,7 @@ package Music::BachChoralHarmony;
 
 # ABSTRACT: Parse the UCI Bach choral harmony data set
 
-our $VERSION = '0.0300';
+our $VERSION = '0.0301';
 
 use Moo;
 use strictures 2;
@@ -294,16 +294,12 @@ sub search {
 
                 for my $bit ( @bitstring ) {
                     if ( $bit ) {
-                        if ( $and ) {
-                            for my $note ( sort @notes ) {
-                                if ( defined $index{$note} && $i == $index{$note} ) {
+                        for my $note ( sort @notes ) {
+                            if ( defined $index{$note} && $i == $index{$note} ) {
+                                if ( $and ) {
                                     $and_notes{$note}++;
                                 }
-                            }
-                        }
-                        else {
-                            for my $note ( sort @notes ) {
-                                if ( defined $index{$note} && $i == $index{$note} ) {
+                                else {
                                     $match++;
                                 }
                             }
@@ -368,16 +364,14 @@ sub _search_param {
         my $match = 0;
 
         for my $event ( @{ $self->data->{$id}{events} } ) {
-            if ( $and ) {
-                for my $note ( keys %notes ) {
-                    if ( $note eq $event->{$name} ) {
+            for my $note ( keys %notes ) {
+                if ( $note eq $event->{$name} ) {
+                    if ( $and ) {
                         $and_notes{$note}++;
                     }
-                }
-            }
-            else {
-                if ( any { $_ eq $event->{$name} } keys %notes ) {
-                    $match++;
+                    else {
+                        $match++;
+                    }
                 }
             }
         }
