@@ -40,6 +40,11 @@ use List::Util qw/ any /;
   # Args can be combined too:
   $songs = $bach->search( key => 'C_M C_m', chord => 'X_m & F_M' );
 
+  # Possibly handy:
+  my $notes = $bach->bits2notes('100000000000');     # C
+  $notes = $bach->bits2notes('010000000000');        # Db
+  $notes = $bach->bits2notes( '010000000000', '#' ); # C#
+
 =head1 DESCRIPTION
 
 C<Music::BachChoralHarmony> parses the UCI Bach choral harmony data set of 60
