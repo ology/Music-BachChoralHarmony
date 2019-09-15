@@ -123,8 +123,27 @@ Create a new C<Music::BachChoralHarmony> object.
 Parse the B<data_file> and B<key_title> files into a B<data> hash
 reference of each song keyed by the song id.  Each song includes a BWV
 identifier, title, key and list of events.  The event list is made of
-hash references with a B<notes> bit string, B<bass> note, the
+hash references with a B<notes> bit-string, B<bass> note, the
 B<accent> value and the resonating B<chord>.
+
+The dataset B<notes> bit-string is defined by position as follows:
+
+  0  => C
+  1  => C# or Db
+  2  => D
+  3  => D# or Eb
+  4  => E
+  5  => F
+  6  => F# or Gb
+  7  => G
+  8  => G# or Ab
+  9  => A
+  10 => A# or Bb
+  11 => B
+
+So if a C<C> note is present, the C<0>th bit will be set to C<1>,
+otherwise C<0>.  If A C<Bb> note is present, the C<10>th bit will be
+set, etc.
 
 =cut
 
