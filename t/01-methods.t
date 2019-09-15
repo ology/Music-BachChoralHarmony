@@ -26,8 +26,10 @@ lives_ok {
 
 is keys %$songs, 60, 'parse progression';
 
-my $x = '000106b_';
-my $y = '002806b_';
+my $x = '000106b_'; # F_M
+my $y = '002806b_'; # A_m
+my $z = '001207b_'; # BbM
+
 ok exists $songs->{$x}, $x;
 my $song = $songs->{$x};
 
@@ -54,11 +56,11 @@ is scalar( keys %{ $bach->search( key => 'X_M' ) } ), 0, 'X_M key search';
 is scalar( keys %{ $bach->search( key => 'C_M' ) } ), 6, 'C key search';
 is scalar( keys %{ $bach->search( key => 'C_m' ) } ), 1, 'C_m key search';
 is scalar( keys %{ $bach->search( key => 'X_M C_M' ) } ), 6, 'X_M or C_M key search';
-$x = scalar( keys %{ $bach->search( key => 'C_M C#M DbM D_M D#M EbM E_M F_M F#M GbM G_M G#M AbM A_M A#M BbM B_M' ) } );
-$y = scalar( keys %{ $bach->search( key => 'C_m C#m Dbm D_m D#m Ebm E_m F_m F#m Gbm G_m G#m Abm A_m A#m Bbm B_m' ) } );
-is $x, 35, 'major keys search';
-is $y, 25, 'minor keys search';
-is $x + $y, 60, 'major + minor = total songs';
+my $i = scalar( keys %{ $bach->search( key => 'C_M C#M DbM D_M D#M EbM E_M F_M F#M GbM G_M G#M AbM A_M A#M BbM B_M' ) } );
+my $j = scalar( keys %{ $bach->search( key => 'C_m C#m Dbm D_m D#m Ebm E_m F_m F#m Gbm G_m G#m Abm A_m A#m Bbm B_m' ) } );
+is $i, 35, 'major keys search';
+is $j, 25, 'minor keys search';
+is $i + $j, 60, 'major + minor = total songs';
 is scalar( keys %{ $bach->search( key => 'C_M C_m' ) } ), 7, 'C_M or C_m key search';
 is scalar( keys %{ $bach->search( bass => 'X' ) } ), 0, 'X bass search';
 is scalar( keys %{ $bach->search( bass => 'C' ) } ), 47, 'C bass search';
@@ -85,8 +87,6 @@ is scalar( keys %{ $bach->search( notes => 'C & G' ) } ), 48, 'C and G notes sea
 is scalar( keys %{ $bach->search( notes => 'E & G' ) } ), 53, 'E and G notes search';
 is scalar( keys %{ $bach->search( notes => 'C & E & G' ) } ), 46, 'C and E and G notes search';
 
-$x = '000106b_';
-$y = '002806b_';
 is scalar( keys %{ $bach->search( id => "$x $y", key => 'F_M' ) } ), 1, 'ids and key search';
 is scalar( keys %{ $bach->search( id => "$x $y", key => 'F_M A_m' ) } ), 2, 'ids and keys search';
 is scalar( keys %{ $bach->search( id => $x, key => 'F_M' ) } ), 1, 'id and key search';
@@ -94,17 +94,22 @@ is scalar( keys %{ $bach->search( id => $x, key => 'X_M' ) } ), 0, 'id and !key 
 is scalar( keys %{ $bach->search( id => $x, key => 'X_M F_M' ) } ), 1, 'id and keys search';
 is scalar( keys %{ $bach->search( id => $x, bass => 'F' ) } ), 1, 'id and bass search';
 is scalar( keys %{ $bach->search( id => $x, bass => 'X' ) } ), 0, 'id and !bass search';
-is scalar( keys %{ $bach->search( id => $x, bass => 'X F' ) } ), 1, 'id and bass search';
+is scalar( keys %{ $bach->search( id => $x, bass => 'X F' ) } ), 1, 'id and basses search';
 is scalar( keys %{ $bach->search( id => $x, bass => 'X & F' ) } ), 0, 'id and !basses search';
 is scalar( keys %{ $bach->search( id => $x, chord => 'F_M' ) } ), 1, 'id and chord search';
 is scalar( keys %{ $bach->search( id => $x, chord => 'X_M' ) } ), 0, 'id and !chord search';
-is scalar( keys %{ $bach->search( id => $x, chord => 'X_M F_M' ) } ), 1, 'id and chord search';
-is scalar( keys %{ $bach->search( id => $x, chord => 'X_M & F_M' ) } ), 0, 'id and !chord search';
+is scalar( keys %{ $bach->search( id => $x, chord => 'X_M F_M' ) } ), 1, 'id and chords search';
+is scalar( keys %{ $bach->search( id => $x, chord => 'X_M & F_M' ) } ), 0, 'id and !chords search';
 is scalar( keys %{ $bach->search( id => $x, notes => 'F' ) } ), 1, 'id and note search';
 is scalar( keys %{ $bach->search( id => $x, notes => 'X' ) } ), 0, 'id and !note search';
 is scalar( keys %{ $bach->search( id => $x, notes => 'X F' ) } ), 1, 'id and notes search';
 is scalar( keys %{ $bach->search( id => $x, notes => 'F C' ) } ), 1, 'id and notes search';
 is scalar( keys %{ $bach->search( id => $x, notes => 'C & F' ) } ), 1, 'id and notes search';
 is scalar( keys %{ $bach->search( id => $x, notes => 'X & F' ) } ), 0, 'id and !notes search';
+is scalar( keys %{ $bach->search( id => "$x $y", notes => 'F & A' ) } ), 2, 'id and notes search';
+is scalar( keys %{ $bach->search( id => $z, notes => 'Bb' ) } ), 1, 'id and note search';
+is scalar( keys %{ $bach->search( id => $z, notes => 'B' ) } ), 0, 'id and !note search';
+is scalar( keys %{ $bach->search( id => $z, notes => 'Bb B' ) } ), 1, 'id and notes search';
+is scalar( keys %{ $bach->search( id => $z, notes => 'Bb & B' ) } ), 0, 'id and !notes search';
 
 done_testing();
