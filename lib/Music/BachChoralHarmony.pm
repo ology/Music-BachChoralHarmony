@@ -2,7 +2,7 @@ package Music::BachChoralHarmony;
 
 # ABSTRACT: Parse the UCI Bach choral harmony data set
 
-our $VERSION = '0.0302';
+our $VERSION = '0.0400';
 
 use Moo;
 use strictures 2;
@@ -362,6 +362,75 @@ sub search {
     }
 
     return \%results;
+}
+
+=head2 bits2notes
+
+  $bach->bits2notes($string);
+  $bach->bits2notes( $string, $accidental );
+
+Convert a bit-string of 12 binary positions to a note list array
+reference.
+
+The B<accidental> can be given as C<#> sharp or C<b> flat the case of
+enharmonic notes.
+
+Default: C<b>
+
+The dataset B<notes> bit-string is defined by position as follows:
+
+  0  => C
+  1  => C# or Db
+  2  => D
+  3  => D# or Eb
+  4  => E
+  5  => F
+  6  => F# or Gb
+  7  => G
+  8  => G# or Ab
+  9  => A
+  10 => A# or Bb
+  11 => B
+
+So if a C<C> note is present in the current phrase, the first bit will
+be set to C<1>, otherwise C<0>.  If a C<Bb> note is present, the
+penultimate bit will be set, etc.
+
+=cut
+
+sub bits2notes {
+    my ( $self, $string, $accidental ) = @_;
+
+    $accidental ||= 'b';
+
+    my @notes = ();
+
+    no warnings 'qw';
+    my @positions = qw( C C#|Db D D#|Eb E F F#|Gb G G#|Ab A A#|Bb B );
+
+    my @bits = split //, $string;
+
+    my $i = 0;
+
+    for my $bit ( @bits ) {
+        if ( $bit ) {
+            my @note = split /\|/, $positions[$i];
+            my $note = '';
+
+            if ( @note > 1 ) {
+                $note = $accidental eq '#' ? $note[0] : $note[1];
+            }
+            else {
+                $note = $note[0];
+            }
+
+            push @notes, $note;
+        }
+
+        $i++;
+    }
+
+    return \@notes;
 }
 
 sub _search_param {
