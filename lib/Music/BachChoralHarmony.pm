@@ -38,7 +38,7 @@ use List::Util qw/ any /;
   $songs = $bach->search( notes => 'C E G' );     # With the notes C or E or G
   $songs = $bach->search( notes => 'C & E & G' ); # With C and E and G
   # Args can be combined too:
-  $songs = $bach->search( key => 'C_M C_m', chord => 'X_m & F_M' ) } );
+  $songs = $bach->search( key => 'C_M C_m', chord => 'X_m & F_M' );
 
 =head1 DESCRIPTION
 
