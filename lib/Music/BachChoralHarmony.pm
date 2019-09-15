@@ -353,8 +353,8 @@ sub search {
 
 =head2 bits2notes
 
-  $bach->bits2notes($string);
-  $bach->bits2notes( $string, $accidental );
+  $notes = $bach->bits2notes($string);
+  $notes = $bach->bits2notes( $string, $accidental );
 
 Convert a bit-string of 12 binary positions to a note list array
 reference.
