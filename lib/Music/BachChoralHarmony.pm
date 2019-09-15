@@ -34,7 +34,7 @@ use List::Util qw/ any /;
   $songs = $bach->search( bass => 'C & D' );      # With C and D in the bass
   $songs = $bach->search( chord => 'C_M' );       # With a C major chord
   $songs = $bach->search( chord => 'C_M D_m' );   # With a C major or a D minor chord
-  $songs = $bach->search( chord => 'C_M & D_m' ); # With a C major and a D minor chord
+  $songs = $bach->search( chord => 'C_M & D_m' ); # With C major and D minor chords
   $songs = $bach->search( notes => 'C E G' );     # With the notes C or E or G
   $songs = $bach->search( notes => 'C & E & G' ); # With C and E and G
   # Args can be combined too:
