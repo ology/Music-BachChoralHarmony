@@ -53,13 +53,14 @@ chorales.
 
 This module does a few simple things:
 
-1. It turns the UCI CSV data into a perl data structure.
+* It turns the UCI CSV data into a perl data structure.
 
-2. It converts the UCI YES/NO note specification into a bit string.
+* It combines the Bach BWV number, song title and key with the data.
 
-3. It combines the Bach BWV number, song title and key with the data.
+* It converts the UCI YES/NO note specification into a bit string and
+named note list.
 
-4. It allows searching by ids, keys, notes, and chords.
+* It allows searching by ids, keys, notes, and chords.
 
 The BWV and titles were collected from an Internet Archive and
 filled-in from L<https://bach-chorales.com/>.  The keys were computed
