@@ -37,6 +37,8 @@ use List::Util qw/ any /;
   $songs = $bach->search( chord => 'C_M & D_m' ); # With a C major and a D minor chord
   $songs = $bach->search( notes => 'C E G' );     # With the notes C or E or G
   $songs = $bach->search( notes => 'C & E & G' ); # With C and E and G
+  # Args can be combined too:
+  $songs = $bach->search( key => 'C_M C_m', chord => 'X_m & F_M' ) } );
 
 =head1 DESCRIPTION
 
@@ -212,8 +214,6 @@ The B<bass>, B<chord>, and B<notes> can be searched either as C<or>
 (separating note names with a space character), or as inclusive C<and>
 (separating note names with an C<&> character).
 
-* The items to search for cannot be combined at this time.
-
 =cut
 
 sub search {
@@ -228,21 +228,35 @@ sub search {
             $results{$id} = $self->data->{$id};
         }
     }
-    elsif ( $args{key} ) {
+
+    if ( $args{key} ) {
+        my @iter = keys %results ? keys %results : keys %{ $self->data };
+
         my @keys = split /\s+/, $args{key};
 
-        for my $id ( keys %{ $self->data } ) {
-            $results{$id} = $self->data->{$id}
-                if any { $_ eq $self->data->{$id}{key} } @keys;
+        for my $id ( @iter ) {
+            if ( $results{$id} ) {
+                delete $results{$id}
+                    unless any { $_ eq $results{$id}{key} } @keys;
+            }
+            else {
+                $results{$id} = $self->data->{$id}
+                    if any { $_ eq $self->data->{$id}{key} } @keys;
+            }
         }
     }
-    elsif ( $args{bass} ) {
-        %results = $self->_search_param( bass => $args{bass} );
+
+    if ( $args{bass} ) {
+        %results = $self->_search_param( bass => $args{bass}, \%results );
     }
-    elsif ( $args{chord} ) {
-        %results = $self->_search_param( chord => $args{chord} );
+
+    if ( $args{chord} ) {
+        %results = $self->_search_param( chord => $args{chord}, \%results );
     }
-    elsif ( $args{notes} ) {
+
+    if ( $args{notes} ) {
+        my @iter = keys %results ? keys %results : keys %{ $self->data };
+
         my $and = $args{notes} =~ /&/ ? 1 : 0;
         my $re  = $and ? qr/\s*&\s*/ : qr/\s+/;
 
@@ -268,8 +282,10 @@ sub search {
             'B'  => 11,
         );
 
-        ID: for my $id ( keys %{ $self->data } ) {
+        ID: for my $id ( @iter ) {
             my %and_notes = ();
+
+            my $match = 0;
 
             for my $event ( @{ $self->data->{$id}{events} } ) {
                 my @bitstring = split //, $event->{notes};
@@ -286,9 +302,10 @@ sub search {
                             }
                         }
                         else {
-                            if ( any { defined $index{$_} && $i == $index{$_} } @notes ) {
-                                $results{$id} = $self->data->{$id};
-                                next ID;
+                            for my $note ( sort @notes ) {
+                                if ( defined $index{$note} && $i == $index{$note} ) {
+                                    $match++;
+                                }
                             }
                         }
                     }
@@ -297,19 +314,34 @@ sub search {
                 }
             }
 
-            if ( keys %and_notes ) {
-                my %notes;
-                @notes{@notes} = undef;
+            if ( $and ) {
+                if ( keys %and_notes ) {
+                    my %notes;
+                    @notes{@notes} = undef;
 
-                my $i = 0;
+                    my $i = 0;
 
-                for my $n ( keys %and_notes ) {
-                    $i++
-                        if exists $notes{$n};
+                    for my $n ( keys %and_notes ) {
+                        $i++
+                            if exists $notes{$n};
+                    }
+
+                    if ( $i == scalar keys %notes ) {
+                        $results{$id} = $self->data->{$id};
+                    }
+                    else {
+                        delete $results{$id}
+                            if $results{$id};
+                    }
                 }
-
-                $results{$id} = $self->data->{$id}
-                    if $i == scalar keys %notes;
+            }
+            else {
+                if ( $results{$id} && $match <= 0 ) {
+                    delete $results{$id};
+                }
+                elsif ( $match > 0 ) {
+                    $results{$id} = $self->data->{$id};
+                }
             }
         }
     }
@@ -318,7 +350,9 @@ sub search {
 }
 
 sub _search_param {
-    my ( $self, $name, $param ) = @_;
+    my ( $self, $name, $param, $seen ) = @_;
+
+    my @iter = keys %$seen ? keys %$seen : keys %{ $self->data };
 
     my %results = ();
 
@@ -328,8 +362,10 @@ sub _search_param {
     my %notes = ();
     @notes{ split $re, $param } = undef;
 
-    ID: for my $id ( keys %{ $self->data } ) {
+    ID: for my $id ( @iter ) {
         my %and_notes = ();
+
+        my $match = 0;
 
         for my $event ( @{ $self->data->{$id}{events} } ) {
             if ( $and ) {
@@ -341,28 +377,41 @@ sub _search_param {
             }
             else {
                 if ( any { $_ eq $event->{$name} } keys %notes ) {
-                    $results{$id} = $self->data->{$id};
-                    next ID;
+                    $match++;
                 }
             }
         }
 
-        if ( keys %and_notes ) {
-            my $i = 0;
+        if ( $and ) {
+            if ( keys %and_notes ) {
+                my $i = 0;
 
-            for my $n ( keys %and_notes ) {
-                $i++
-                    if exists $notes{$n};
+                for my $n ( keys %and_notes ) {
+                    $i++
+                        if exists $notes{$n};
+                }
+
+                if ( $i == scalar keys %notes ) {
+                    $results{$id} = $self->data->{$id};
+                }
+                else {
+                    delete $results{$id}
+                        if $results{$id};
+                }
             }
-
-            $results{$id} = $self->data->{$id}
-                if $i == scalar keys %notes;
+        }
+        else {
+            if ( $results{$id} && $match <= 0 ) {
+                delete $results{$id};
+            }
+            elsif ( $match > 0 ) {
+                $results{$id} = $self->data->{$id};
+            }
         }
     }
 
     return %results;
 }
-
 
 1;
 __END__

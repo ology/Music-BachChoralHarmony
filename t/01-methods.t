@@ -85,4 +85,26 @@ is scalar( keys %{ $bach->search( notes => 'C & G' ) } ), 48, 'C and G notes sea
 is scalar( keys %{ $bach->search( notes => 'E & G' ) } ), 53, 'E and G notes search';
 is scalar( keys %{ $bach->search( notes => 'C & E & G' ) } ), 46, 'C and E and G notes search';
 
+$x = '000106b_';
+$y = '002806b_';
+is scalar( keys %{ $bach->search( id => "$x $y", key => 'F_M' ) } ), 1, 'ids and key search';
+is scalar( keys %{ $bach->search( id => "$x $y", key => 'F_M A_m' ) } ), 2, 'ids and keys search';
+is scalar( keys %{ $bach->search( id => $x, key => 'F_M' ) } ), 1, 'id and key search';
+is scalar( keys %{ $bach->search( id => $x, key => 'X_M' ) } ), 0, 'id and !key search';
+is scalar( keys %{ $bach->search( id => $x, key => 'X_M F_M' ) } ), 1, 'id and keys search';
+is scalar( keys %{ $bach->search( id => $x, bass => 'F' ) } ), 1, 'id and bass search';
+is scalar( keys %{ $bach->search( id => $x, bass => 'X' ) } ), 0, 'id and !bass search';
+is scalar( keys %{ $bach->search( id => $x, bass => 'X F' ) } ), 1, 'id and bass search';
+is scalar( keys %{ $bach->search( id => $x, bass => 'X & F' ) } ), 0, 'id and !basses search';
+is scalar( keys %{ $bach->search( id => $x, chord => 'F_M' ) } ), 1, 'id and chord search';
+is scalar( keys %{ $bach->search( id => $x, chord => 'X_M' ) } ), 0, 'id and !chord search';
+is scalar( keys %{ $bach->search( id => $x, chord => 'X_M F_M' ) } ), 1, 'id and chord search';
+is scalar( keys %{ $bach->search( id => $x, chord => 'X_M & F_M' ) } ), 0, 'id and !chord search';
+is scalar( keys %{ $bach->search( id => $x, notes => 'F' ) } ), 1, 'id and note search';
+is scalar( keys %{ $bach->search( id => $x, notes => 'X' ) } ), 0, 'id and !note search';
+is scalar( keys %{ $bach->search( id => $x, notes => 'X F' ) } ), 1, 'id and notes search';
+is scalar( keys %{ $bach->search( id => $x, notes => 'F C' ) } ), 1, 'id and notes search';
+is scalar( keys %{ $bach->search( id => $x, notes => 'C & F' ) } ), 1, 'id and notes search';
+is scalar( keys %{ $bach->search( id => $x, notes => 'X & F' ) } ), 0, 'id and !notes search';
+
 done_testing();
