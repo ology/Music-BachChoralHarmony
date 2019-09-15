@@ -21,6 +21,7 @@ use List::Util qw/ any /;
 
   # show all the song ids:
   print Dumper [ sort keys %$songs ];
+  print Dumper [ sort keys %{ $bach->data } ]; # Same
 
   # show all the song titles:
   print Dumper [ map { $songs->{$_}{title} } sort keys %$songs ];
