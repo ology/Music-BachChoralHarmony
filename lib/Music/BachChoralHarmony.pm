@@ -142,7 +142,7 @@ The dataset B<notes> bit-string is defined by position as follows:
   11 => B
 
 So if a C<C> note is present, the C<0>th bit will be set to C<1>,
-otherwise C<0>.  If A C<Bb> note is present, the C<10>th bit will be
+otherwise C<0>.  If a C<Bb> note is present, the C<10>th bit will be
 set, etc.
 
 =cut
