@@ -69,7 +69,7 @@ links in the L</SEE ALSO> section for more information.
 
 The local file where the Bach choral harmony data set resides.
 
-Default: C<dist_dir()>/jsbach_chorals_harmony.data
+Default: F<dist_dir()/jsbach_chorals_harmony.data>
 
 =cut
 
@@ -85,7 +85,7 @@ has data_file => (
 The local file where the key signatures and titles for each song are listed by
 BWV number.
 
-Default: C<dist_dir()>/jsbach_BWV_keys_titles.txt
+Default: F<dist_dir()/jsbach_BWV_keys_titles.txt>
 
 =cut
 
