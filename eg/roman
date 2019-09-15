@@ -21,7 +21,7 @@ $in_key = 'minor'
 my $bach = Music::BachChoralHarmony->new;
 my $songs = $bach->parse();
 # Show all keys:
-#use Data::Dumper;warn(Dumper[map{"$_: $songs->{$_}{key}"}sort keys%$songs]);exit;
+use Data::Dumper;warn(Dumper[map{"$_: $songs->{$_}{key}"}sort keys%$songs]);exit;
 
 my %score;
 

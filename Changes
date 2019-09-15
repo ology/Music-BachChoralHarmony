@@ -1,6 +1,9 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
+    - Add tests.
+
+0.0300 2019-09-14 18:47:01
     - Allow ->search by combining any parameter.
 
 0.0206 2019-09-14 13:01:00
