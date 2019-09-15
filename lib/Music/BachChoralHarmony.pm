@@ -44,6 +44,7 @@ use List::Util qw/ any /;
   my $notes = $bach->bits2notes('100000000000');     # C
   $notes = $bach->bits2notes('010000000000');        # Db
   $notes = $bach->bits2notes( '010000000000', '#' ); # C#
+  $notes = $bach->bits2notes( '100000000010', '#' ); # C A#
 
 =head1 DESCRIPTION
 
