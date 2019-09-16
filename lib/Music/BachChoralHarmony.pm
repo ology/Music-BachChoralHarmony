@@ -42,10 +42,11 @@ use List::Util qw/ any /;
   $songs = $bach->search( key => 'C_M C_m', chord => 'X_m & F_M' );
 
   # Possibly handy:
-  my $notes = $bach->bits2notes('100000000000');     # C
-  $notes = $bach->bits2notes('010000000000');        # Db
-  $notes = $bach->bits2notes( '000000000010', '#' ); # A#
-  $notes = $bach->bits2notes('100000000010');        # C Bb
+  my $notes = $bach->bits2notes('100000000000');     # [ C ]
+  $notes = $bach->bits2notes('010000000000');        # [ Db ]
+  $notes = $bach->bits2notes('000000000010');        # [ Bb ]
+  $notes = $bach->bits2notes( '000000000010', '#' ); # [ A# ]
+  $notes = $bach->bits2notes('110000000010');        # [ C Db Bb ]
 
 =head1 DESCRIPTION
 
