@@ -361,8 +361,8 @@ sub search {
 Convert a bit-string of 12 binary positions to a note list array
 reference.
 
-The B<accidental> can be given as C<#> sharp or C<b> flat the case of
-enharmonic notes.
+The B<accidental> can be given as C<#> sharp or C<b> flat in the case
+of enharmonic notes.
 
 Default: C<b>
 
