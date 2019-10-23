@@ -1,6 +1,9 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
+    - Set a minimum prereq for List::Util.
+
+0.0402 2019-09-16 13:10:08
     - Improve documentation.
 
 0.0401 2019-09-15 13:29:20
