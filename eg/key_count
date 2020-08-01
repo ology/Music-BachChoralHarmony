@@ -14,7 +14,7 @@ for my $id ( keys %$songs ) {
 #warn "MARK: $id\n" if $songs->{$id}{key} eq 'A_m';
     $score{ $songs->{$id}{key} }++;
 }
-#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper\%score);exit;
+#use Data::Dumper;warn Dumper\%score;exit;
 
 use Chart::Bars;
 my $chart = Chart::Bars->new( 800, 400 );
