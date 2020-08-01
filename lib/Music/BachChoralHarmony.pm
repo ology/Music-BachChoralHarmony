@@ -2,7 +2,7 @@ package Music::BachChoralHarmony;
 
 # ABSTRACT: Parse the UCI Bach choral harmony data set
 
-our $VERSION = '0.0403';
+our $VERSION = '0.0404';
 
 use Moo;
 use strictures 2;
@@ -515,6 +515,9 @@ is a program written to extract the key signature.
 
 L<https://github.com/ology/Bach-Chorales/blob/master/chorales.zip>
 are the collected MIDI files and PDF transcriptions.
+
+L<https://en.wikipedia.org/wiki/Chorale_cantata_(Bach)>
+describes the context.
 
 =head1 THANK YOU
 
