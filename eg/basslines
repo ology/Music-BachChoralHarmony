@@ -31,6 +31,8 @@ for my $song ( sort keys %$songs ) {
 
     # Get the scale name
     my $name = $key =~ /M/ ? 'major' : 'minor';
+
+    # Strip the key to just the note
     $key =~ s/_?M//i;
 
     # Skip if not the right key
