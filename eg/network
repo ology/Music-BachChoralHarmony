@@ -26,6 +26,7 @@ for my $struct ( @{ $progression->{events} } ) {
 
     $last = $chord;
 }
+#use Data::Dumper;warn Dumper [map {"$_ => $score{$_}"} sort {$score{$a} <=> $score{$b}} keys %score];exit;
 
 my $g = GraphViz2->new(
     global => { directed => 1 },
