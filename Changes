@@ -1,6 +1,7 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
+    - Add the eg/tension program to graph Cope tension analysis of each song.
 
 0.0404 2020-08-01 09:35:22
     - Add wikipedia link.
