@@ -66,5 +66,5 @@ for my $song (sort keys %by_song) {
     open my $fh, '>', $filename or die "Can't write to $filename: $!";
     print $fh $gd->png;
     close $fh;
-last;
+#last;
 }
