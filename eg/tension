@@ -1,0 +1,69 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use Data::Dumper::Compact 'ddc';
+use GD::Graph::lines;
+use List::Util qw/max/;
+use Music::BachChoralHarmony;
+use Music::Note;
+use Music::Tension::Cope;
+
+my $width  = shift || 800;
+my $height = shift || 400;
+
+my $tension = Music::Tension::Cope->new;
+
+my $bach = Music::BachChoralHarmony->new;
+my $songs = $bach->parse();
+
+my @scale = 0 .. 11;
+
+my %by_song;
+
+for my $song ( sort keys %$songs ) {
+    for my $event ( @{ $songs->{$song}{events} } ) {
+        # Convert the bitstring to scale notes
+        my @notes;
+        my $i = 0;
+        for my $bit ( split //, $event->{notes} ) {
+            push @notes, $scale[$i]
+                if $bit;
+            $i++;
+        }
+        # Tally the tension defined by the notes
+        push @{ $by_song{$song} }, scalar($tension->vertical(\@notes));
+    }
+}
+#warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc(\%by_song));exit;
+
+for my $song (sort keys %by_song) {
+    my $size = @{ $by_song{$song} };
+    my $ymax = 0;
+    my @data = ([ 1 .. $size ]);
+    my $max = max(@{ $by_song{$song} });
+    $ymax = $max if $max > $ymax;
+    push @data, $by_song{$song};
+
+    my $graph = GD::Graph::lines->new($width, $height);
+
+    $graph->set( 
+        x_label       => 'Chord',
+        y_label       => 'Tension',
+        title         => 'Tension Over Time',
+        transparent   => 0,
+        dclrs         => ['blue'],
+        y_max_value   => $ymax,
+        x_min_value   => 0,
+        x_max_value   => $size,
+        x_tick_number => $size / 10,
+    );
+
+    my $gd = $graph->plot(\@data);
+
+    my $filename = "$song.png";
+    open my $fh, '>', $filename or die "Can't write to $filename: $!";
+    print $fh $gd->png;
+    close $fh;
+#last;
+}
