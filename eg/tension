@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use Data::Dumper::Compact 'ddc';
-use GD::Graph::lines;
+use Chart::LinesPoints;
 use List::Util qw/max/;
 use Music::BachChoralHarmony;
 use Music::Note;
@@ -38,33 +38,25 @@ for my $song ( sort keys %$songs ) {
 #warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc(\%by_song));exit;
 
 for my $song (sort keys %by_song) {
-    my $size = @{ $by_song{$song} };
-    my @data = ([ 1 .. $size ], $by_song{$song});
-    my $ymax = max(@{ $by_song{$song} });
+    my $chart = Chart::LinesPoints->new($width, $height);
 
-    my $graph = GD::Graph::lines->new($width, $height);
-
-    $graph->set( 
-        x_label       => 'Chord',
-        y_label       => 'Tension',
-        title         => 'Tension Over Time',
-        transparent   => 0,
-        dclrs         => ['black'],
-        y_max_value   => $ymax,
-        x_min_value   => 0,
-        x_max_value   => $size,
-        x_tick_number => $size / 10,
-        t_margin      => 10,
-        b_margin      => 10,
-        l_margin      => 10,
-        r_margin      => 20,
+    $chart->set(
+        legend      => 'none',
+        title       => 'Tension Over Time in ' . $song,
+        x_label     => 'Chord',
+        y_label     => 'Tension',
+#        integer_ticks_only => 'true',
+        include_zero => 'true',
+        precision => 2,
+        skip_x_ticks => 4,
+        brush_size   => 3,
+        pt_size      => 6,
+        y_grid_lines => 'true',
     );
 
-    my $gd = $graph->plot(\@data);
+    $chart->add_dataset(1 .. @{ $by_song{$song} });
+    $chart->add_dataset(@{ $by_song{$song} });
 
-    my $filename = "$song.png";
-    open my $fh, '>', $filename or die "Can't write to $filename: $!";
-    print $fh $gd->png;
-    close $fh;
+    $chart->png("$song.png");
 #last;
 }
