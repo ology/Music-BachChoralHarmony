@@ -56,5 +56,6 @@ for my $song (sort keys %by_song) {
     $chart->add_dataset(@{ $by_song{$song} });
 
     $chart->png("$song.png");
-#last;
+
+    last;
 }
