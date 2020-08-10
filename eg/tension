@@ -47,8 +47,8 @@ for my $song (sort keys %by_song) {
         include_zero => 'true',
         precision    => 2,
         skip_x_ticks => 4,
-        brush_size   => 3,
-        pt_size      => 6,
+        brush_size   => 2,
+        pt_size      => 4,
         y_grid_lines => 'true',
     );
 
