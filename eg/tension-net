@@ -8,7 +8,7 @@ use List::Util qw/max/;
 use Music::BachChoralHarmony;
 use Music::Tension::Cope;
 
-my $thresh = shift || 1;
+my $thresh = shift || 20;
 
 my $tension = Music::Tension::Cope->new;
 
