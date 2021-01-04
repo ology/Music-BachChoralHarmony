@@ -32,12 +32,14 @@ for my $song ( sort keys %$songs ) {
             $i++;
         }
         # Tally the tension defined by the notes
-        push @{ $by_song{$song} }, scalar($tension->vertical(\@notes));
+        push @{ $by_song{$song}->{tension} }, scalar($tension->vertical(\@notes));
     }
+
+    $by_song{$song}->{events} = @{ $songs->{$song}{events} };
 }
 #warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc(\%by_song));exit;
 
-my %score = map { $_ => sum0(@{ $by_song{$_} }) } keys %by_song;
+my %score = map { $_ => sum0(@{ $by_song{$_}->{tension} }) / $by_song{$_}->{events} } keys %by_song;
 #warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc(\%score));exit;
 
 my $chart = Chart::Points->new(1000, 400);
