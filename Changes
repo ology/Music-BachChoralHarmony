@@ -2,6 +2,7 @@ Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
     - Add the eg/tension-net program.
+    - Add the eg/tension-sort program.
 
 0.0406 2020-08-10 08:24:43
     - Improve the eg/tension program.
