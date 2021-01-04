@@ -24,7 +24,13 @@ my %by_song;
 for my $song ( sort keys %$songs ) {
     for my $event ( @{ $songs->{$song}{events} } ) {
         # Convert the bitstring to scale notes
-        my @notes = @{ $bach->bits2notes($event->{notes}) };
+        my @notes;
+        my $i = 0;
+        for my $bit ( split //, $event->{notes} ) {
+            push @notes, $scale[$i]
+                if $bit;
+            $i++;
+        }
 
         # Tally the tension defined by the notes
         push @{ $by_song{$song}->{tension} }, scalar($tension->vertical(\@notes));
