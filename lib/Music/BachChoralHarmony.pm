@@ -380,10 +380,6 @@ The dataset B<notes> bit-string is defined by position as follows:
   10 => A# or Bb
   11 => B
 
-So if a C<C> note is present in the current phrase, the first bit will
-be set to C<1>, otherwise C<0>.  If a C<Bb> note is present, the
-penultimate bit will be set, etc.
-
 =cut
 
 sub bits2notes {
