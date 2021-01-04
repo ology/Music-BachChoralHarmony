@@ -484,13 +484,13 @@ __END__
 
 The F<eg/*> and F<t/01-methods.t> files in this distribution.
 
-L<Moo>
-
-L<Text::CSV>
-
 L<File::ShareDir>
 
 L<List::Util>
+
+L<Moo>
+
+L<Text::CSV>
 
 L<https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony>
 is the dataset itself.
