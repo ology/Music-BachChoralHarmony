@@ -51,9 +51,7 @@ use List::Util qw/ any /;
 =head1 DESCRIPTION
 
 C<Music::BachChoralHarmony> parses the UCI Bach choral harmony data set of 60
-chorales.
-
-This module does a few simple things:
+chorales and does a few things:
 
 * It turns the UCI CSV data into a perl data structure.
 
