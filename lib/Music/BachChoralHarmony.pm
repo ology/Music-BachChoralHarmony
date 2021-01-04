@@ -119,13 +119,13 @@ has data => (
 
 =head2 new
 
-  $bach = Music::BachChoralHarmony->new();
+  $bach = Music::BachChoralHarmony->new;
 
 Create a new C<Music::BachChoralHarmony> object.
 
 =head2 parse
 
-  $songs = $bach->parse();
+  $songs = $bach->parse;
 
 Parse the B<data_file> and B<key_title> files into a B<data> hash
 reference of each song keyed by the song id.  Each song includes a BWV
@@ -159,7 +159,7 @@ sub parse {
 
     # Collect the events
     my $csv = Text::CSV->new( { binary => 1 } )
-        or die "Can't use CSV: ", Text::CSV->error_diag();
+        or die "Can't use CSV: ", Text::CSV->error_diag;
 
     open $fh, '<', $self->data_file
         or die "Can't read ", $self->data_file, ": $!";
@@ -195,7 +195,7 @@ sub parse {
         push @{ $progression->{$id}{events} }, $struct;
     }
 
-    $csv->eof or die $csv->error_diag();
+    $csv->eof or die $csv->error_diag;
     close $fh;
 
     $self->data($progression);
