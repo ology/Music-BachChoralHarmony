@@ -68,6 +68,9 @@ with a L<music21|https://web.mit.edu/music21/> program, and if missing
 filled-in again from L<https://bach-chorales.com/>.  Check out the
 links in the L</SEE ALSO> section for more information.
 
+The main purpose of this module is to produce the results of the
+F<eg/*> programs.  So check 'em out!
+
 =head1 ATTRIBUTES
 
 =head2 data_file
