@@ -37,11 +37,7 @@ for my $song ( sort keys %$songs ) {
 }
 #warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc(\%by_song));exit;
 
-my %score;
-
-for my $song (keys %by_song) {
-    $score{$song} = sum0(@{ $by_song{$song} });
-}
+my %score = map { $_ => sum0(@{ $by_song{$_} }) } keys %by_song;
 #warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc(\%score));exit;
 
 my $chart = Chart::Points->new(1000, 400);
