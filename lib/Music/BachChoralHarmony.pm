@@ -6,11 +6,12 @@ our $VERSION = '0.0410';
 
 use Moo;
 use strictures 2;
-use namespace::clean;
 
-use Text::CSV;
+use Text::CSV ();
 use File::ShareDir qw/ dist_dir /;
 use List::Util qw/ any /;
+
+use namespace::clean;
 
 =head1 SYNOPSIS
 
