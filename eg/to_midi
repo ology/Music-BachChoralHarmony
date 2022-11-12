@@ -23,8 +23,7 @@ my $bach = Music::BachChoralHarmony->new(
     data_file => $data_file,
     key_title => $key_title,
 );
-my $song = $bach->parse();
-#use Data::Dumper;warn(Dumper[sort keys%$song]);exit;
+my $song = $bach->parse;
 
 if ($id == -1) {
     my @ids = keys %$song;
