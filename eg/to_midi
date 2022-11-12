@@ -12,7 +12,7 @@ use Music::BachChoralHarmony ();
 use MIDI::Util qw(setup_score set_chan_patch midi_format);
 use Music::Duration ();
 
-my $id  = shift || '000106b_';
+my $id  = shift || '000106b_'; # -1 selects a random song
 my $bpm = shift || 90;
 
 Music::Duration::tuple( 'wn', 'W', 5 ); # 5 notes in place of one whole note
@@ -25,6 +25,11 @@ my $bach = Music::BachChoralHarmony->new(
 );
 my $song = $bach->parse();
 #use Data::Dumper;warn(Dumper[sort keys%$song]);exit;
+
+if ($id == -1) {
+    my @ids = keys %$song;
+    $id = $ids[ int rand @ids ];
+}
 
 # Redefine the progression for the given id:
 $song = $song->{$id};
