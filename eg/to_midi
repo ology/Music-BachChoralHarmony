@@ -25,7 +25,7 @@ my $bach = Music::BachChoralHarmony->new(
 );
 my $song = $bach->parse;
 
-if ($id == -1) {
+if ($id eq -1) {
     my @ids = keys %$song;
     $id = $ids[ int rand @ids ];
 }
