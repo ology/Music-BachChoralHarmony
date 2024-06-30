@@ -7,7 +7,7 @@ use warnings;
 use Data::Dumper::Compact qw(ddc);
 use Chart::Points;
 use List::Util qw(sum0);
-#use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
+#use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
 use Music::BachChoralHarmony;
 use Music::Tension::Cope;
 

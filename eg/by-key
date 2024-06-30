@@ -5,7 +5,7 @@ use warnings;
 # Plot a network graph of the outgoing chords of all songs in the given key.
 
 use GraphViz2;
-#use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
+#use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
 use Music::BachChoralHarmony;
 
 my $key = shift || 'A_m';

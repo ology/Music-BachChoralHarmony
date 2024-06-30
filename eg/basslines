@@ -5,7 +5,7 @@ use warnings;
 # Roman numeral analysis of the most common bass lines.
 
 use Data::Dumper;
-#use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony Music-ToRoman); # local author libs
+#use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony Music-ToRoman); # local author libs
 use Music::BachChoralHarmony;
 use Music::ToRoman;
 

@@ -7,7 +7,7 @@ use warnings;
 use List::Util qw(shuffle);
 use Music::Chord::Note ();
 use Music::Scales qw(get_scale_notes);
-#use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(MIDI-Util Music-BachChoralHarmony Music-Duration); # local author libs
+#use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(MIDI-Util Music-BachChoralHarmony Music-Duration); # local author libs
 use Music::BachChoralHarmony ();
 use MIDI::Util qw(setup_score set_chan_patch midi_format);
 use Music::Duration ();

@@ -5,7 +5,7 @@ use warnings;
 use Data::Dumper::Compact qw/ddc/;
 use GraphViz2;
 use List::Util qw/max/;
-#use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
+#use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
 use Music::BachChoralHarmony;
 use Music::Tension::Cope;
 
