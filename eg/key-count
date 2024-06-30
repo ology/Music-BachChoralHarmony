@@ -6,6 +6,7 @@ use warnings;
 
 #use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
 use Music::BachChoralHarmony;
+use Chart::Bars;
 
 #my $data_file = 'share/jsbach_chorals_harmony.data'; # local author files
 #my $key_title = 'share/jsbach_BWV_keys_titles.txt';  # "
@@ -22,7 +23,6 @@ for my $id ( keys %$songs ) {
 }
 #use Data::Dumper;warn Dumper\%score;exit;
 
-use Chart::Bars;
 my $chart = Chart::Bars->new( 800, 400 );
 
 $chart->set(
