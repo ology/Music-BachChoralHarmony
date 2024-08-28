@@ -2,7 +2,7 @@ package Music::BachChoralHarmony;
 
 # ABSTRACT: Parse the UCI Bach choral harmony data set
 
-our $VERSION = '0.0412';
+our $VERSION = '0.0413';
 
 use Moo;
 use strictures 2;
