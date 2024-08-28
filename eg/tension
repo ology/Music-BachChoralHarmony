@@ -7,8 +7,7 @@ use warnings;
 use Data::Dumper::Compact 'ddc';
 use Chart::Lines;
 use List::Util qw/max/;
-#use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
-use Music::BachChoralHarmony;
+#use Music::BachChoralHarmony;
 use Music::Tension::Cope;
 use Statistics::Basic qw(mean);
 

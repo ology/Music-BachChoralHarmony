@@ -5,8 +5,7 @@ use warnings;
 # Plot a network graph of the chords of a given song.
 
 use GraphViz2;
-#use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
-use Music::BachChoralHarmony;
+#use Music::BachChoralHarmony;
 
 my $id = shift || '000106b_'; # -1 selects a random song
 my $thresh = shift || 1;

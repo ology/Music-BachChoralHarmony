@@ -4,8 +4,7 @@ use warnings;
 
 # Plot the number of notes for each song.
 
-#use if $ENV{USER} eq "gene", lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(Music-BachChoralHarmony); # local author libs
-use Music::BachChoralHarmony;
+#use Music::BachChoralHarmony;
 
 #my $data_file = 'share/jsbach_chorals_harmony.data'; # local author files
 #my $key_title = 'share/jsbach_BWV_keys_titles.txt';  # "
