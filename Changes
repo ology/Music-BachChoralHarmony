@@ -1,6 +1,7 @@
 Revision history for Music-BachChoralHarmony
 
 {{$NEXT}}
+    - Lose local author lib line in eg/.
 
 0.0412 2022-11-12 10:44:15
     - Improve eg/* programs.
